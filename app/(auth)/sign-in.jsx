@@ -30,7 +30,7 @@ const SignIn = () => {
             keyboardType="email-adress"
           />
           <PhoneInputSecond
-            title="Password"
+            title="Номер телефона"
             value={text}
             handleChangeText={(e) => setText(e)}
             otherStyles="mt-7"

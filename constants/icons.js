@@ -13,6 +13,7 @@ import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
 
 import phone from "../assets/s7/icons/phone.png"
+import authInput from "../assets/s7/icons/arrowAuthInput.png"
 
 export default {
   play,
@@ -29,4 +30,5 @@ export default {
   eyeHide,
   eye,
   phone,
+  authInput
 };

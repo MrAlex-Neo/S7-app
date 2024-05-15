@@ -17,8 +17,8 @@ const PhoneInputFirst = ({
     // Убираем все нецифровые символы
     const cleaned = input.replace(/\D/g, '');
     // Добавляем пробелы между группами цифр
-    const formatted = cleaned.replace(/(\d{1,3})(\d{1,2})(\d{1,3})(\d{1,2})(\d{1,2})/, '+$1 $2 $3 $4 $5');
-    return formatted;
+    const formatted = cleaned.replace(/(\d{1,3})(\d{1,2})(\d{1,3})(\d{1,2})(\d{1,2})/, '$1 $2 $3 $4 $5');
+    return '+' + formatted;
   };
 
   return (
