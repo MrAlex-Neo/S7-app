@@ -26,7 +26,7 @@ const LangChangeButton = ({
             resizeMode="contain"
           />
           <Text
-            className={`text-black font-roboto text-base ${textStyles} tracking-wider`}
+            className={`text-black font-robotoRegular text-base ${textStyles} tracking-wider`}
           >
             {title}
           </Text>
