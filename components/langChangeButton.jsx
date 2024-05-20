@@ -14,7 +14,7 @@ const LangChangeButton = ({
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}
-        className={`bg-grayColor flex-row rounded-xl min-h-[62px] justify-between px-4 py-2 items-center ${containerStyles} ${
+        className={`bg-grayColor flex-row rounded-xl min-h-[9vh] justify-between px-[3vw] py-[1vh] items-center ${containerStyles} ${
           isLoading ? "opacity-50" : ""
         }`}
         disabled={isLoading}
@@ -22,7 +22,7 @@ const LangChangeButton = ({
         <View className="flex-row items-center gap-5">
           <Image
             source={img}
-            className="w-10 h-10 rounded-full"
+            className="h-[5vh] w-auto rounded-full"
             resizeMode="contain"
           />
           <Text
@@ -31,7 +31,7 @@ const LangChangeButton = ({
             {title}
           </Text>
         </View>
-        <Image source={images.arrow} className="w-4 h-4" resizeMode="contain" />
+        <Image source={images.arrow} className="w-[3vw] h-[2vh]" resizeMode="contain" />
       </TouchableOpacity>
     </>
   );

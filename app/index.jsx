@@ -29,15 +29,15 @@ export default function App() {
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 500,
-      
+
       useNativeDriver: true,
     }).start();
 
-    Animated.spring(slideAnim, {
-      toValue: 0,
-      friction: 5,
-      useNativeDriver: true,
-    }).start();
+    // Animated.spring(slideAnim, {
+    //   toValue: 0,
+    //   friction: 5,
+    //   useNativeDriver: true,
+    // }).start();
   }, [part]);
 
   const welcomeInfo = [
@@ -75,11 +75,11 @@ export default function App() {
       <I18nextProvider i18n={i18next}>
         <SafeAreaView className="bg-white h-full">
           <ScrollView contentContainerStyle={{ height: "100%" }}>
-            <View className="w-full flex-col justify-between items-center min-h-[85vh] h-full pb-10">
+            <View className="w-full flex-col justify-end items-center min-h-[100vh] h-full pb-[4vh]">
               <Animated.View
-                className={`w-full justify-end items-center ${
-                  part === 4 ? "min-h-[40vh]" : "min-h-[50vh]"
-                }`}
+                className={`w-full flex-col ${
+                  part === 0 ? "justify-start" : " justify-end"
+                } items-center ${part === 4 ? "min-h-[30vh]" : "min-h-[50vh]"}`}
                 style={{
                   opacity: fadeAnim,
                   transform: [{ translateY: slideAnim }],
@@ -88,16 +88,16 @@ export default function App() {
                 <Image
                   source={welcomeInfo[part].Img}
                   className={` ${
-                    part === 4 ? "w-8/12 h-80 mt-24" : "w-11/12 mx-auto"
+                    part === 4 ? "w-8/12 h-[35vh] mt-14" : "w-11/12 h-[40vh]"
                   } `}
                   resizeMode="contain"
                 />
               </Animated.View>
               {part === 0 ? (
-                <View className="w-full flex-col justify-end items-center px-4 min-h-[40vh]">
+                <View className="w-full flex-col justify-between items-center px-4 min-h-[29vh]">
                   <LangChangeBtn
                     title="O’zbekcha"
-                    containerStyles="w-full mb-3"
+                    containerStyles="w-full"
                     handlePress={() => {
                       changeLanguage("uz");
                     }}
@@ -105,21 +105,21 @@ export default function App() {
                   />
                   <LangChangeBtn
                     title="Русский"
-                    containerStyles="w-full mb-3"
+                    containerStyles="w-full"
                     handlePress={() => changeLanguage("ru")}
                     img={images.ru_flag}
                   />
                   <LangChangeBtn
                     title="English"
-                    containerStyles="w-full mb-3"
+                    containerStyles="w-full"
                     handlePress={() => changeLanguage("en")}
                     img={images.us_flag}
                   />
                 </View>
-              ) : part !== 0 && part < 5 ? (
+              ) : part !== 0 ? (
                 <View
                   className={`flex-col text-center justify-between items-center ${
-                    part === 4 ? "min-h-[37vh]" : "min-h-[30vh]"
+                    part === 4 ? "min-h-[42vh]" : "min-h-[37vh]"
                   } mx-2`}
                 >
                   <Animated.View
@@ -128,28 +128,30 @@ export default function App() {
                       transform: [{ translateY: slideAnim }],
                     }}
                   >
-                    <View className="flex-col text-center items-center">
+                    <View
+                      className={`flex-col justify-end text-center items-center ${
+                        part === 4 ? "h-[20vh]" : "h-[27vh]"
+                      } `}
+                    >
                       <HighlightKeyword
                         text={welcomeInfo[part].text} // Исходный текст
                         keyword="S7 Energy" // Ключевое слово для выделения
-                        highlightStyle={`font-robotoBold tracking-wider  ${
-                          part === 4 ? "text-xl" : "text-2xl"
-                        }  text-center mx-4`} // Стиль выделения
+                        highlightStyle={`font-robotoBold tracking-wider text-xl text-xl text-center mx-[1vh]`} // Стиль выделения
                       />
                       {welcomeInfo[part].text_1 ? (
-                        <Text className="font-robotoBold tracking-wider text-2xl text-center mx-2 mt-2 mb-4 leading-8">
+                        <Text className="font-robotoBold tracking-wider text-xl text-center mx-2 leading-8">
                           {welcomeInfo[part].text_1}
                         </Text>
                       ) : null}
                       {welcomeInfo[part].span ? (
-                        <Text className="font-robotoMedium tracking-wider color-grayColor-300 text-xl text-center mt-5 mx-6">
+                        <Text className="font-robotoMedium tracking-wider color-grayColor-300 text-xl text-center mt-[1vh] mb-[1vh] mx-6">
                           {welcomeInfo[part].span}
                         </Text>
                       ) : null}
                     </View>
                   </Animated.View>
                   {part !== 4 ? (
-                    <View className="flex-col text-center justify-between items-center min-h-[14vh]">
+                    <View className="flex-col text-center justify-between items-center min-h-[15vh]">
                       <Pagination sum={3} active={part} />
                       <View className="w-full flex-row gap-y-2 justify-between mx-4">
                         <PrimaryButton
@@ -169,24 +171,24 @@ export default function App() {
                       </View>
                     </View>
                   ) : (
-                    <View className="flex-col text-center justify-between items-center min-h-[22vh] mx-2">
+                    <View className="flex-col text-center justify-around items-center min-h-[26vh] mx-2">
                       <PrimaryButton
                         title={t("registration")}
-                        containerStyles="bg-secondary w-full"
+                        containerStyles="bg-secondary w-full h-[7.1vh]"
                         textStyles="text-white"
-                        handlePress={() => setPart(4)}
-                      />
-                      <PrimaryButton
-                        title={t("log_in")}
-                        containerStyles="bg-primary w-full"
-                        textStyles="text-black"
                         handlePress={() => router.push("/sign-in")}
                       />
                       <PrimaryButton
-                        title={t("open_app")}
-                        containerStyles="bg-primary w-full"
+                        title={t("log_in")}
+                        containerStyles="bg-primary w-full h-[7.1vh]"
                         textStyles="text-black"
-                        handlePress={() => setPart(0)}
+                        handlePress={() => router.push("/sign-up")}
+                      />
+                      <PrimaryButton
+                        title={t("open_app")}
+                        containerStyles="bg-primary w-full h-[7.1vh]"
+                        textStyles="text-black"
+                        handlePress={() => router.push("/")}
                       />
                     </View>
                   )}
@@ -201,12 +203,7 @@ export default function App() {
   );
 }
 
-
-
-
-
-
- // const screenWidth = Dimensions.get("window").width;
-  // const screenHeight = Dimensions.get("window").height;
-  // console.log(screenWidth);
-  // console.log(screenHeight);
+// const screenWidth = Dimensions.get("window").width;
+// const screenHeight = Dimensions.get("window").height;
+// console.log(screenWidth);
+// console.log(screenHeight);
