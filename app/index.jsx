@@ -75,7 +75,7 @@ export default function App() {
       <I18nextProvider i18n={i18next}>
         <SafeAreaView className="bg-white h-full">
           <ScrollView contentContainerStyle={{ height: "100%" }}>
-            <View className="w-full flex-col justify-end items-center min-h-[100vh] h-full pb-[4vh]">
+            <View className="w-full flex-col justify-end items-center min-h-[100vh] h-full pb-[3vh]">
               <Animated.View
                 className={`w-full flex-col ${
                   part === 0 ? "justify-start" : " justify-end"
@@ -188,7 +188,7 @@ export default function App() {
                         title={t("open_app")}
                         containerStyles="bg-primary w-full h-[7.1vh]"
                         textStyles="text-black"
-                        handlePress={() => router.push("/")}
+                        handlePress={() => router.push("/map")}
                       />
                     </View>
                   )}

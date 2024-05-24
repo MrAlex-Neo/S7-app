@@ -29,7 +29,7 @@ const PhoneInputFirst = ({
 
   return (
     <View className={keyboardType === "numeric" ? 'pb-[2vh]' : 'pb-[5vh]'}>
-      <View className={`space-y-2 ${otherStyles}`}>
+      <View className={`${otherStyles} mb-[1vh]`}>
         <Text className="text-base tracking-wider font-robotoBold">
           {title}
         </Text>

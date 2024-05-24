@@ -18,7 +18,9 @@ module.exports = {
         grayColor: {
           DEFAULT: "#F8F8F8",
           100: "#D9D9D9",
-          300: "#808080"
+          200: "#fafafa",
+          300: "#808080",
+          400: "#F5F5F5",
         },
         blue: {
           DEFAULT: '#4083fe',

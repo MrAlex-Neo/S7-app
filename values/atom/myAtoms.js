@@ -1,14 +1,15 @@
 // import { atom } from "jotai";
 import { useEffect } from 'react';
 import { Dimensions } from 'react-native';
+import { atom } from 'jotai';
 
 // Создаем атомы для ширины и высоты экрана
 export const screenWidthAtom = Dimensions.get('window').width
 export const screenHeightAtom = Dimensions.get('window').height
 
-const UseScreenSize = ({screenWidth, screenHeight}) => {
+const UseScreenSize = ({ screenWidth, screenHeight }) => {
 
-    
+
     // const [screenWidth, setScreenWidth] = useAtom(screenWidthAtom);
     // const [screenHeight, setScreenHeight] = useAtom(screenHeightAtom);
 
@@ -30,3 +31,23 @@ const UseScreenSize = ({screenWidth, screenHeight}) => {
 };
 
 export default UseScreenSize;
+
+
+export const regAtom = atom({
+    regCode: '',
+    trueCode: false,
+    response_code: '',
+    tel: "",
+    name: "",
+    surname: "",
+});
+
+
+export const authAtom = atom({
+    authCode: '',
+    trueCode: false,
+    response_code: '',
+    tel: "",
+    name: "",
+    surname: "",
+});

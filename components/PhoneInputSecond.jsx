@@ -1,7 +1,6 @@
 import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { icons } from "../constants";
-import { useRouter } from "expo-router";
 
 const PhoneInputSecond = ({
   title,
@@ -11,16 +10,13 @@ const PhoneInputSecond = ({
   otherStyles,
   badResponse,
   mistake,
-  ...props
+  isLoading,
+  click,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
 
-  // Функция для форматирования ввода номера телефона
   const formatPhoneNumber = (input) => {
-    // Убираем все нецифровые символы
     const cleaned = input.replace(/\D/g, "");
-    // Добавляем пробелы между группами цифр
     const formatted = cleaned.replace(
       /(\d{1,3})(\d{1,2})(\d{1,3})(\d{1,2})(\d{1,2})/,
       "$1 $2 $3 $4 $5"
@@ -41,8 +37,11 @@ const PhoneInputSecond = ({
           resizeMode="contain"
         />
         <TouchableOpacity
-          className=" absolute top-[14%] right-[1vw] z-10"
-          onPress={() => router.push("/map")}
+          className={`absolute top-[14%] right-[1vw] z-10 ${
+            isLoading ? "opacity-50" : ""
+          }`}
+          disabled={isLoading}
+          onPress={click}
         >
           <Image
             source={icons.authInput}
@@ -52,12 +51,12 @@ const PhoneInputSecond = ({
         </TouchableOpacity>
         <TextInput
           className="flex-1 text-lg tracking-wider font-roboto pl-[9vw]"
-          value={formatPhoneNumber(value)} // Применяем форматирование к значению
+          value={formatPhoneNumber(value)}
           placeholder={placeholder}
           placeholderTextColor="#F8F8F8"
           keyboardType="numeric"
+          maxLength={17}
           onChangeText={(text) => {
-            // Удаляем нецифровые символы и обновляем значение
             handleChangeText(text.replace(/\D/g, ""));
           }}
           secureTextEntry={title === "Password" && !showPassword}
