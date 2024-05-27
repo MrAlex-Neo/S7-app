@@ -34,28 +34,28 @@ const Map = () => {
   };
 
   const requestLocationPermission = async () => {
-    // try {
-    //   const agree = await PermissionsAndroid.request(
-    //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    //     {
-    //       title: "Разрешение на доступ к местоположению",
-    //       message:
-    //         "Нам необходимо разрешение для определения вашего текущего местоположения.",
-    //       buttonNeutral: "Спросить позже",
-    //       buttonNegative: "Отмена",
-    //       buttonPositive: "OK",
-    //     }
-    //   );
-    //   const { status } = await Location.requestForegroundPermissionsAsync();
-    //   if (status === "granted" && agree) {
-    //     console.log("Разрешение получено");
-    //     setLocationPermissionGranted(true);
-    //   } else {
-    //     console.log("Разрешение отклонено");
-    //   }
-    // } catch (error) {
-    //   console.warn("Ошибка запроса разрешений:", error);
-    // }
+    try {
+      const agree = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: "Разрешение на доступ к местоположению",
+          message:
+            "Нам необходимо разрешение для определения вашего текущего местоположения.",
+          buttonNeutral: "Спросить позже",
+          buttonNegative: "Отмена",
+          buttonPositive: "OK",
+        }
+      );
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === "granted" && agree) {
+        console.log("Разрешение получено");
+        setLocationPermissionGranted(true);
+      } else {
+        console.log("Разрешение отклонено");
+      }
+    } catch (error) {
+      console.warn("Ошибка запроса разрешений:", error);
+    }
   };
 
   const getCurrentLocation = async () => {
