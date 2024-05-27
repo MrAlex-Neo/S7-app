@@ -51,3 +51,9 @@ export const authAtom = atom({
     name: "",
     surname: "",
 });
+
+export const focus = atom({
+    search: false,
+    map: false
+});
+

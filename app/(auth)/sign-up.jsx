@@ -134,7 +134,7 @@ const SignUp = () => {
             <Text className="font-robotoRegular color-grayColor-300 text-lg mt-[4vh] mb-[4vh]">
               {`${t("checkCode")} --- --- --- -${number[10]}${number[11]} ${t(
                 "checkCode1"
-              )}`}
+              )} ${authData.response_code}`}
             </Text>
             <CodeInput state="auth" startTimer={btnFirst} />
             {badCode && (

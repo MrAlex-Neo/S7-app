@@ -3,6 +3,8 @@ import { View, Text, Image, Animated, Keyboard, StyleSheet } from "react-native"
 import { Tabs } from "expo-router";
 import { icons } from "../../constants";
 import { useTranslation } from "react-i18next";
+import { useAtom } from "jotai";
+import { focus } from "../../values/atom/myAtoms";
 
 
 const TabIcon = ({ icon, color, name, focused }) => {
@@ -52,20 +54,32 @@ const TabIcon = ({ icon, color, name, focused }) => {
 const TabsLayout = () => {
   const { t } = useTranslation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [visible, setVisible] = useAtom(focus);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardVisible(true);
+      console.log(visible.map, 'visible.map')
+      if (visible.map) {
+        setVisible((prevUserState) => ({
+          ...prevUserState,
+          search: true
+        }));
+      }
     });
     const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+     
       setKeyboardVisible(false);
+      setVisible((prevUserState) => ({
+        ...prevUserState,
+        search: false
+      }));
     });
 
     return () => {
       keyboardDidHideListener.remove();
       keyboardDidShowListener.remove();
     };
-  }, []);
+  }, [visible.map]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -80,6 +94,7 @@ const TabsLayout = () => {
               borderTopColor: "#A2A2A2",
               paddingBottom: 5,
               height: 80,
+              display: `${visible.search || visible.map? 'none' : ''}`
             },
             isKeyboardVisible && styles.hidden
           ],
