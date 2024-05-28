@@ -18,6 +18,7 @@ import {
   PanGestureHandler,
   State,
 } from "react-native-gesture-handler";
+import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
 
 const Map = () => {
   const { t, i18 } = useTranslation();
@@ -36,23 +37,43 @@ const Map = () => {
 
   const requestLocationPermission = async () => {
     try {
-      const agree = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: "Разрешение на доступ к местоположению",
-          message:
-            "Нам необходимо разрешение для определения вашего текущего местоположения.",
-          buttonNeutral: "Спросить позже",
-          buttonNegative: "Отмена",
-          buttonPositive: "OK",
+      if (Platform.OS === 'android') {
+        const agree = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: "Разрешение на доступ к местоположению",
+            message:
+              "Нам необходимо разрешение для определения вашего текущего местоположения.",
+            buttonNeutral: "Спросить позже",
+            buttonNegative: "Отмена",
+            buttonPositive: "OK",
+          }
+        );
+
+        if (agree === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log("Разрешение получено");
+          setLocationPermissionGranted(true);
+          // Включение службы геолокации на Android
+          LocationServicesDialogBox.checkLocationServicesIsEnabled({
+            message: "<h2>Требуется включение геолокации</h2>Приложению необходимо включить службы геолокации для определения вашего текущего местоположения.",
+            ok: "OK",
+            cancel: "Отмена",
+          }).then(() => {
+            console.log("Геолокация включена");
+          }).catch((error) => {
+            console.log("Ошибка включения геолокации:", error.message);
+          });
+        } else {
+          console.log("Разрешение отклонено");
         }
-      );
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status === "granted" && agree) {
-        console.log("Разрешение получено");
-        setLocationPermissionGranted(true);
       } else {
-        console.log("Разрешение отклонено");
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status === "granted") {
+          console.log("Разрешение получено");
+          setLocationPermissionGranted(true);
+        } else {
+          console.log("Разрешение отклонено");
+        }
       }
     } catch (error) {
       console.warn("Ошибка запроса разрешений:", error);
@@ -74,10 +95,11 @@ const Map = () => {
       console.warn("Ошибка получения местоположения:", error);
     }
   };
-  console.log("translateY", translateY);
+
   useEffect(() => {
     requestLocationPermission();
   }, []);
+
 
   useEffect(() => {
     if (locationPermissionGranted) {
@@ -91,10 +113,10 @@ const Map = () => {
   );
 
   const handleStateChange = ({ nativeEvent }) => {
-    console.log(nativeEvent.velocityY);
-    if (nativeEvent.velocityY > 0) {
-      const { translationY } = nativeEvent;
-      if (translationY > 10 * (Platform.OS === "ios" ? 8.5 : 10)) {
+    const { translationY } = nativeEvent;
+    console.log(translationY);
+    if (nativeEvent.state === State.END) {
+      if (translationY > 20 * (Platform.OS === "ios" ? 8.5 : 10)) {
         setIsFocused((prevUserState) => ({
           ...prevUserState,
           map: false,
@@ -116,10 +138,6 @@ const Map = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View className="flex-1">
-        <PanGestureHandler
-        // onGestureEvent={handleGesture}
-        // onHandlerStateChange={handleStateChange}
-        >
           <Animated.View
             id="main"
             className={`absolute z-20 p-[2vw] ${
@@ -133,6 +151,7 @@ const Map = () => {
               <PanGestureHandler
                 onGestureEvent={handleGesture}
                 onHandlerStateChange={handleStateChange}
+                activeOffsetY={[-9999, 0]}
               >
                 <Animated.View className="h-[6vh]">
                   <Animated.View
@@ -144,7 +163,6 @@ const Map = () => {
             ) : null}
             <SearchInp placeholder={t("searchText")} map={true} />
           </Animated.View>
-        </PanGestureHandler>
         <MapView
           ref={mapRef}
           style={styles.map}
