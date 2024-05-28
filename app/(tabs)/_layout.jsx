@@ -58,7 +58,7 @@ const TabsLayout = () => {
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-      console.log(visible.map, 'visible.map')
+      // console.log(visible.map, 'visible.map')
       if (visible.map) {
         setVisible((prevUserState) => ({
           ...prevUserState,

@@ -8,7 +8,7 @@ const SearchInput = ({ placeholder, map }) => {
   const [value, setValue] = useState("");
   const [isFocused, setIsFocused] = useAtom(focus);
   useEffect(() => {
-    console.log(isFocused)
+    // console.log(isFocused)
   }, [isFocused])
   
   const handleFocus = () => {
@@ -17,7 +17,7 @@ const SearchInput = ({ placeholder, map }) => {
       search: true
     })); // Используйте метод set для обновления состояния
 
-    console.log(map, 'map')
+    // console.log(map, 'map')
     if (map === true) {
       setIsFocused((prevUserState) => ({
         ...prevUserState,

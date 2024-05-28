@@ -5,8 +5,8 @@ import {
   View,
   PermissionsAndroid,
   Platform,
-  Image,
   Keyboard,
+  Animated,
 } from "react-native";
 import * as Location from "expo-location";
 import SearchInp from "../../components/SearchInp";
@@ -16,6 +16,7 @@ import { focus } from "../../values/atom/myAtoms";
 import {
   GestureHandlerRootView,
   PanGestureHandler,
+  State,
 } from "react-native-gesture-handler";
 
 const Map = () => {
@@ -25,7 +26,7 @@ const Map = () => {
   const [currentRegion, setCurrentRegion] = useState(null);
   const mapRef = useRef(null);
   const [isFocused, setIsFocused] = useAtom(focus);
-
+  const translateY = useRef(new Animated.Value(0)).current;
   const initialRegion = {
     latitude: 41.2995,
     longitude: 69.2401,
@@ -73,7 +74,7 @@ const Map = () => {
       console.warn("Ошибка получения местоположения:", error);
     }
   };
-
+  console.log("translateY", translateY);
   useEffect(() => {
     requestLocationPermission();
   }, []);
@@ -84,39 +85,65 @@ const Map = () => {
     }
   }, [locationPermissionGranted]);
 
-  const handleGesture = (event) => {
-    const { translationY } = event.nativeEvent;
-    if (translationY > 0) {
-      // Если свайп вниз
-      setIsFocused((prevUserState) => ({
-        ...prevUserState,
-        map: false,
-      }));
-      // setIsFocused({ search: false });
-      Keyboard.dismiss();
+  const handleGesture = Animated.event(
+    [{ nativeEvent: { translationY: translateY } }],
+    { useNativeDriver: false }
+  );
+
+  const handleStateChange = ({ nativeEvent }) => {
+    console.log(nativeEvent.velocityY);
+    if (nativeEvent.velocityY > 0) {
+      const { translationY } = nativeEvent;
+      if (translationY > 10 * (Platform.OS === "ios" ? 8.5 : 10)) {
+        setIsFocused((prevUserState) => ({
+          ...prevUserState,
+          map: false,
+        }));
+        Keyboard.dismiss();
+      } else {
+        Animated.spring(translateY, {
+          toValue: 0,
+          useNativeDriver: true,
+        }).start();
+      }
     }
+    Animated.spring(translateY, {
+      toValue: 0,
+      useNativeDriver: true,
+    }).start();
   };
-  
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <PanGestureHandler onGestureEvent={handleGesture}>
-          <View
+      <View className="flex-1">
+        <PanGestureHandler
+        // onGestureEvent={handleGesture}
+        // onHandlerStateChange={handleStateChange}
+        >
+          <Animated.View
             id="main"
             className={`absolute z-20 p-[2vw] ${
               isFocused.map
                 ? `h-[90%] bottom-0 right-0 w-[100%] p-[4vw] pt-[1vh] pb-0 rounded-3xl rounded-br-none rounded-bl-none`
                 : "w-[90%] bottom-[2vh] right-[1vw] mx-[3.5vw] rounded-md"
             }  bg-white`}
+            style={{ transform: [{ translateY }] }}
           >
-            {
-              isFocused.map ?
-              <View id="child" className="border-2 m-2 rounded-full w-[10vw] mx-auto mb-[5vh]"></View>
-              : null
-            }
+            {isFocused.map ? (
+              <PanGestureHandler
+                onGestureEvent={handleGesture}
+                onHandlerStateChange={handleStateChange}
+              >
+                <Animated.View className="h-[6vh]">
+                  <Animated.View
+                    id="child"
+                    className="border-2 m-2 rounded-full w-[10vw] mx-auto"
+                  />
+                </Animated.View>
+              </PanGestureHandler>
+            ) : null}
             <SearchInp placeholder={t("searchText")} map={true} />
-          </View>
+          </Animated.View>
         </PanGestureHandler>
         <MapView
           ref={mapRef}
@@ -144,9 +171,6 @@ const Map = () => {
 export default Map;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   map: {
     width: "100%",
     height: "100%",
