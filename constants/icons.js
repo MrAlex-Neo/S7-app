@@ -24,6 +24,7 @@ import stationsActive from "../assets/s7/icons/stationsActive.png"
 import favouritesActive from "../assets/s7/icons/favouritesActive.png"
 import profileActive from "../assets/s7/icons/profileActive.png"
 import myLocation from "../assets/s7/icons/myLocation.png"
+import cardArrow from "../assets/s7/icons/cardArrow.png"
 
 export default {
   play,
@@ -50,4 +51,5 @@ export default {
   favourites,
   profile,
   myLocation,
+  cardArrow
 };

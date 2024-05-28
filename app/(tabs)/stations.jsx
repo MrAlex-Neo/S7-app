@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React, { useTransition } from "react";
 import SearchInput from "../../components/SearchInp.jsx";
 import { useTranslation } from "react-i18next";
+import StationCard from "../../components/StationCard.jsx";
 
 const Stations = () => {
   const { t, i18 } = useTranslation();
@@ -11,6 +12,13 @@ const Stations = () => {
         {t("stations")}
       </Text>
       <SearchInput placeholder={t('searchText')} />
+      <ScrollView vertical showsVerticalScrollIndicator={false}>
+        <View className="flex-col pt-[3vh]">
+          <StationCard busy={true} />
+          <StationCard busy={false} />
+          <StationCard busy={true} />
+        </View>
+      </ScrollView>
     </View>
   );
 };
