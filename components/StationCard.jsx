@@ -1,11 +1,31 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import { useState } from "react";
 import { color } from "react-native-elements/dist/helpers";
+import { router } from "expo-router";
+import { useAtom } from "jotai";
+import { useTranslation } from "react-i18next";
+
+
 import { icons } from "../constants";
+import { focus } from "../values/atom/myAtoms";
+
 
 const StationCard = ({ busy }) => {
+  const { t, i18 } = useTranslation();
+  const [isFocused, setIsFocused] = useAtom(focus);
+
+  
+  const clickHandler = () => {
+    setIsFocused((prevUserState) => ({
+      ...prevUserState,
+      map: false,
+    }));
+    router.push("/map")
+  }
+
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={clickHandler}>
       <View className="mt-[3vw] border-2 border-grayColor-100 rounded-md p-[2vh]">
         <View className="flex-row justify-between items-center">
           <View className="flex-row items-center ">
@@ -16,7 +36,7 @@ const StationCard = ({ busy }) => {
                   : "border-secondary text-secondary"
               } p-[1vw] text-center w-[25vw] rounded-md`}
             >
-              {busy ? "Занят" : "Свободен"}
+              {busy ? t('busy') : t('free')}
             </Text>
             <Text
               className="ml-[3vw] font-robotoMedium text-sm w-[30vw]"

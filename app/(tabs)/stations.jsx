@@ -13,7 +13,7 @@ const Stations = () => {
       </Text>
       <SearchInput placeholder={t('searchText')} />
       <ScrollView vertical showsVerticalScrollIndicator={false}>
-        <View className="flex-col pt-[3vh]">
+        <View className="flex-col pt-[1vh]">
           <StationCard busy={true} />
           <StationCard busy={false} />
           <StationCard busy={true} />

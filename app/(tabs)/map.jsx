@@ -21,10 +21,13 @@ import {
   State,
 } from "react-native-gesture-handler";
 import StationCard from "../../components/StationCard";
+import { fetchAuthMe } from "../../redux/slices/auth";
+import { useDispatch } from "react-redux";
 // import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
 
 const Map = () => {
   const { t, i18 } = useTranslation();
+  const dispatch = useDispatch()
   const [locationPermissionGranted, setLocationPermissionGranted] =
     useState(false);
   const [currentRegion, setCurrentRegion] = useState(null);
@@ -37,6 +40,10 @@ const Map = () => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
+
+  useEffect(() => {
+    dispatch(fetchAuthMe());
+  }, [])
 
   const requestLocationPermission = async () => {
     setLocationPermissionGranted(true);
@@ -169,7 +176,7 @@ const Map = () => {
           <SearchInp placeholder={t("searchText")} map={true} />
           {isFocused.map ? (
             <ScrollView vertical showsVerticalScrollIndicator={false}>
-              <View className="flex-col pt-[3vh]">
+              <View className="flex-col pt-[3vh] pb-[3vh]">
                 <StationCard busy={true} />
                 <StationCard busy={true} />
                 <StationCard busy={false} />

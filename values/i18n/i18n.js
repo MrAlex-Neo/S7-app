@@ -41,6 +41,8 @@ const resources = {
       name: 'Name',
       surname: 'Surname',
       searchText: 'Search for charging stations',
+      busy: 'Busy',
+      free: 'Free',
     },
   },
   ru: {
@@ -78,6 +80,8 @@ const resources = {
       name: 'Имя',
       surname: 'Фамилия',
       searchText: 'Поиск зарядных станций',
+      busy: 'Занят',
+      free: 'Свободен',
     },
   },
   uz: {
@@ -115,6 +119,8 @@ const resources = {
       name: 'Ism',
       surname: 'Familiyasi',
       searchText: 'Zaryadlash stantsiyalarini qidirish',
+      busy: 'Band',
+      free: 'Ozod',
     },
   },
 };
