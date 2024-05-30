@@ -9,6 +9,7 @@ import {
   Keyboard,
   Animated,
   ScrollView,
+  SafeAreaView
 } from "react-native";
 import * as Location from "expo-location";
 import SearchInp from "../../components/SearchInp";
@@ -27,7 +28,7 @@ import { useDispatch } from "react-redux";
 
 const Map = () => {
   const { t, i18 } = useTranslation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [locationPermissionGranted, setLocationPermissionGranted] =
     useState(false);
   const [currentRegion, setCurrentRegion] = useState(null);
@@ -43,7 +44,7 @@ const Map = () => {
 
   useEffect(() => {
     dispatch(fetchAuthMe());
-  }, [])
+  }, []);
 
   const requestLocationPermission = async () => {
     setLocationPermissionGranted(true);
@@ -148,66 +149,68 @@ const Map = () => {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View className="flex-1">
-        <Animated.View
-          id="main"
-          className={`absolute z-20 p-[2vw] ${
-            isFocused.map
-              ? `h-[90%] bottom-0 right-0 w-[100%] p-[4vw] pt-[1vh] pb-0 rounded-3xl rounded-br-none rounded-bl-none`
-              : "w-[90%] bottom-[2vh] right-[1vw] mx-[3.5vw] rounded-md"
-          }  bg-white`}
-          style={{ transform: [{ translateY }] }}
-        >
-          {isFocused.map ? (
-            <PanGestureHandler
-              onGestureEvent={handleGesture}
-              onHandlerStateChange={handleStateChange}
-              activeOffsetY={[-9999, 0]}
-            >
-              <Animated.View className="h-[6vh]">
-                <Animated.View
-                  id="child"
-                  className="border-2 m-2 rounded-full w-[10vw] mx-auto"
-                />
-              </Animated.View>
-            </PanGestureHandler>
-          ) : null}
-          <SearchInp placeholder={t("searchText")} map={true} />
-          {isFocused.map ? (
-            <ScrollView vertical showsVerticalScrollIndicator={false}>
-              <View className="flex-col pt-[3vh] pb-[3vh]">
-                <StationCard busy={true} />
-                <StationCard busy={true} />
-                <StationCard busy={false} />
-                <StationCard busy={true} />
-                <StationCard busy={false} />
-                <StationCard busy={false} />
-                <StationCard busy={true} />
-              </View>
-            </ScrollView>
-          ) : null}
-        </Animated.View>
-        <MapView
-          ref={mapRef}
-          style={styles.map}
-          initialRegion={initialRegion}
-          showsCompass={true}
-          provider={PROVIDER_GOOGLE}
-          showsUserLocation={locationPermissionGranted}
-          // showsMyLocationButton={locationPermissionGranted}
-          onMapReady={() => {
-            console.log("Карта готова");
-            getCurrentLocation();
-          }}
-          // myLocationButtonEnabled={true}
-          customMapStyle={{
-            showsMyLocationButton: true,
-          }}
-          mapPadding={{ top: 40, right: 20, bottom: 40, left: 20 }}
-        />
-      </View>
-    </GestureHandlerRootView>
+    <SafeAreaView className="bg-white h-full">
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <View className="flex-1">
+          <Animated.View
+            id="main"
+            className={`absolute z-20 p-[2vw] ${
+              isFocused.map
+                ? `h-[90%] bottom-0 right-0 w-[100%] p-[4vw] pt-[1vh] pb-0 rounded-3xl rounded-br-none rounded-bl-none`
+                : "w-[90%] bottom-[2vh] right-[1vw] mx-[3.5vw] rounded-md"
+            }  bg-white`}
+            style={{ transform: [{ translateY }] }}
+          >
+            {isFocused.map ? (
+              <PanGestureHandler
+                onGestureEvent={handleGesture}
+                onHandlerStateChange={handleStateChange}
+                activeOffsetY={[-9999, 0]}
+              >
+                <Animated.View className="h-[6vh]">
+                  <Animated.View
+                    id="child"
+                    className="border-2 m-2 rounded-full w-[10vw] mx-auto"
+                  />
+                </Animated.View>
+              </PanGestureHandler>
+            ) : null}
+            <SearchInp placeholder={t("searchText")} map={true} />
+            {isFocused.map ? (
+              <ScrollView vertical showsVerticalScrollIndicator={false}>
+                <View className="flex-col pt-[3vh] pb-[3vh]">
+                  <StationCard busy={true} />
+                  <StationCard busy={true} />
+                  <StationCard busy={false} />
+                  <StationCard busy={true} />
+                  <StationCard busy={false} />
+                  <StationCard busy={false} />
+                  <StationCard busy={true} />
+                </View>
+              </ScrollView>
+            ) : null}
+          </Animated.View>
+          <MapView
+            ref={mapRef}
+            style={styles.map}
+            initialRegion={initialRegion}
+            showsCompass={true}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={locationPermissionGranted}
+            // showsMyLocationButton={locationPermissionGranted}
+            onMapReady={() => {
+              console.log("Карта готова");
+              getCurrentLocation();
+            }}
+            // myLocationButtonEnabled={true}
+            customMapStyle={{
+              showsMyLocationButton: true,
+            }}
+            mapPadding={{ top: 40, right: 20, bottom: 40, left: 20 }}
+          />
+        </View>
+      </GestureHandlerRootView>
+    </SafeAreaView>
   );
 };
 

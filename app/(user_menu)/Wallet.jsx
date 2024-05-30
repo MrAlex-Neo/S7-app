@@ -1,14 +1,14 @@
 import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
 
-const History = () => {
+const Wallet = () => {
   return (
     <SafeAreaView className="bg-white h-full">
       <View>
-        <Text>History</Text>
+        <Text>Wallet</Text>
       </View>
     </SafeAreaView>
   )
 }
 
-export default History
+export default Wallet

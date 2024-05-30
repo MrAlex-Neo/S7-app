@@ -1,11 +1,13 @@
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
 
 const UpdateUser = () => {
   return (
-    <View>
-      <Text>UpdateUser</Text>
-    </View>
+    <SafeAreaView className="bg-white h-full">
+      <View>
+        <Text>UpdateUser</Text>
+      </View>
+    </SafeAreaView>
   )
 }
 

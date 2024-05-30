@@ -43,6 +43,10 @@ const resources = {
       searchText: 'Search for charging stations',
       busy: 'Busy',
       free: 'Free',
+      history: 'History',
+      settings: 'Settings',
+      FAQ: 'FAQ',
+      help: 'Help'
     },
   },
   ru: {
@@ -82,6 +86,10 @@ const resources = {
       searchText: 'Поиск зарядных станций',
       busy: 'Занят',
       free: 'Свободен',
+      history: 'История',
+      settings: 'Настройки',
+      FAQ: 'FAQ',
+      help: 'Помощь'
     },
   },
   uz: {
@@ -121,6 +129,10 @@ const resources = {
       searchText: 'Zaryadlash stantsiyalarini qidirish',
       busy: 'Band',
       free: 'Ozod',
+      history: 'Tarix',
+      settings: 'Sozlamalar',
+      FAQ: 'FAQ',
+      help: 'Yordam'
     },
   },
 };

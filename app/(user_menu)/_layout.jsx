@@ -35,6 +35,12 @@ const UserMenuLayout = () => {
             headerShown: false
           }}
         />
+        <Stack.Screen 
+          name="Wallet"
+          options={{
+            headerShown: false
+          }}
+        />
       </Stack>
       <StatusBar 
         backgroundColor="#161622"
