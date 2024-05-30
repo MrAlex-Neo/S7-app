@@ -101,57 +101,64 @@ const SignUp = () => {
 
   return (
     <SafeAreaView className="bg-white flex-1">
-      <ImgButton
-        containerStyles="fixed top-[4vh] left-[4vw]"
-        imgStyles="w-[10vw]"
-        textStyles="text-white"
-        handlePress={() => (part === 0 ? router.push("/") : setPart(0))}
-      />
-      {part === 0 ? (
-        <View className="w-full flex-col justify-around items-center h-[80vh] px-[4vw] py-[6vh]">
-          <Image
-            source={images.image5}
-            resizeMode="contain"
-            className="w-full h-[45vh]"
-          />
-          <PhoneInputSecond
-            title={t("phone_number")}
-            value={number}
-            handleChangeText={(e) => setNumber(e)}
-            otherStyles="w-full"
-            badResponse={badResponse}
-            mistake={t("badPhoneInputText")}
-            isLoading={btnFirst}
-            click={sendNumberHandler}
-          />
-        </View>
-      ) : (
-        <View className="w-full flex-col flex-1 box-border justify-between items-center px-[4vw] pt-[6vh] pb-[2vh]">
-          <View>
-            <Text className="font-robotoBold tracking-wider text-2xl mt-[2vh] leading-8">
-              {t("enterTheCode")}
-            </Text>
-            <Text className="font-robotoRegular color-grayColor-300 text-lg mt-[4vh] mb-[4vh]">
-              {`${t("checkCode")} --- --- --- -${number[10]}${number[11]} ${t(
-                "checkCode1"
-              )} ${authData.response_code}`}
-            </Text>
-            <CodeInput state="auth" startTimer={btnFirst} />
-            {badCode && (
-              <Text className="font-robotoRegular text-sm text-red text-center">
-                {t("wrongCode")}
-              </Text>
-            )}
+      <KeyboardAwareScrollView
+        extraScrollHeight={0}
+        enableOnAndroid={true}
+        keyboardOpeningTime={50}
+        enableAutomaticScroll={true}
+      >
+        <ImgButton
+          containerStyles="fixed top-[4vh] left-[4vw]"
+          imgStyles="w-[10vw]"
+          textStyles="text-white"
+          handlePress={() => (part === 0 ? router.push("/") : setPart(0))}
+        />
+        {part === 0 ? (
+          <View className="w-full flex-col justify-around items-center h-[80vh] px-[4vw] py-[6vh]">
+            <Image
+              source={images.image5}
+              resizeMode="contain"
+              className="w-full h-[45vh]"
+            />
+            <PhoneInputSecond
+              title={t("phone_number")}
+              value={number}
+              handleChangeText={(e) => setNumber(e)}
+              otherStyles="w-full"
+              badResponse={badResponse}
+              mistake={t("badPhoneInputText")}
+              isLoading={btnFirst}
+              click={sendNumberHandler}
+            />
           </View>
-          <PrimaryButton
-            title={t("confirm")}
-            containerStyles="bg-secondary w-full mr-2"
-            textStyles="text-white"
-            isLoading={btnSec}
-            handlePress={() => sendCodeHandler()}
-          />
-        </View>
-      )}
+        ) : (
+          <View className="w-full flex-col flex-1 box-border justify-between items-center px-[4vw] pt-[6vh] pb-[2vh]">
+            <View>
+              <Text className="font-robotoBold tracking-wider text-2xl mt-[2vh] leading-8">
+                {t("enterTheCode")}
+              </Text>
+              <Text className="font-robotoRegular color-grayColor-300 text-lg mt-[4vh] mb-[4vh]">
+                {`${t("checkCode")} --- --- --- -${number[10]}${number[11]} ${t(
+                  "checkCode1"
+                )} ${authData.response_code}`}
+              </Text>
+              <CodeInput state="auth" startTimer={btnFirst} />
+              {badCode && (
+                <Text className="font-robotoRegular text-sm text-red text-center">
+                  {t("wrongCode")}
+                </Text>
+              )}
+            </View>
+            <PrimaryButton
+              title={t("confirm")}
+              containerStyles="bg-secondary w-full mr-2"
+              textStyles="text-white"
+              isLoading={btnSec}
+              handlePress={() => sendCodeHandler()}
+            />
+          </View>
+        )}
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };

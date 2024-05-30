@@ -13,11 +13,13 @@ import profileActive from "../assets/s7/icons/profileActive.png"
 import myLocation from "../assets/s7/icons/myLocation.png"
 import cardArrow from "../assets/s7/icons/cardArrow.png"
 import pencil from "../assets/s7/icons/pencil.png"
+import pencilJpg from "../assets/s7/icons/pencil.jpg"
 import faq from "../assets/s7/icons/faq.png"
 import help from "../assets/s7/icons/help.png"
 import history from "../assets/s7/icons/history.png"
 import purse from "../assets/s7/icons/purse.png"
 import settings from "../assets/s7/icons/settings.png"
+import pencilSec from "../assets/s7/icons/pencilSec.png"
 
 export default {
   phone,
@@ -38,5 +40,7 @@ export default {
   help,
   history,
   purse,
-  settings
+  settings,
+  pencilSec,
+  pencilJpg
 };
