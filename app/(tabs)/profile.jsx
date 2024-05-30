@@ -48,7 +48,7 @@ const Profile = () => {
                     </Text>
                   ) : (
                     <Text className="font-robotoMedium text-xl">
-                      Фродо Бегинс
+                      Фродо Бэггинс
                     </Text>
                   )}
                   {data && data?.data.phone ? (
@@ -78,7 +78,7 @@ const Profile = () => {
                   style={{ alignSelf: "flex-start" }}
                 >
                   <Text className="text-base font-robotoMedium">
-                    Пополнить кошелёк
+                    {t('pursebtn')}
                   </Text>
                 </View>
               </TouchableOpacity>

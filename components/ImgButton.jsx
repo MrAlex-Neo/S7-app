@@ -9,7 +9,7 @@ const ImgButton = ({
   imgStyles
 }) => {
   return (
-    <View className="p">
+    <View className="">
       <TouchableOpacity
         onPress={handlePress}
         activeOpacity={0.7}

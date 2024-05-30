@@ -46,7 +46,10 @@ const resources = {
       history: 'History',
       settings: 'Settings',
       FAQ: 'FAQ',
-      help: 'Help'
+      help: 'Help',
+      purse: 'Adding money to your wallet',
+      pursebtn: 'Top up your wallet',
+      personal_data: 'Personal Information'
     },
   },
   ru: {
@@ -89,7 +92,10 @@ const resources = {
       history: 'История',
       settings: 'Настройки',
       FAQ: 'FAQ',
-      help: 'Помощь'
+      help: 'Помощь',
+      purse: 'Пополнение кошелька',
+      pursebtn: 'Пополнить кошелек',
+      personal_data: 'Личная информация',
     },
   },
   uz: {
@@ -132,7 +138,10 @@ const resources = {
       history: 'Tarix',
       settings: 'Sozlamalar',
       FAQ: 'FAQ',
-      help: 'Yordam'
+      help: 'Yordam',
+      purse: "Hamyonni to'ldirish",
+      pursebtn: "Hamyonni to'ldiring",
+      personal_data: "Shaxsiy ma'lumotlar",
     },
   },
 };

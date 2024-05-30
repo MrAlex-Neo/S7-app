@@ -133,7 +133,7 @@ const SignIn = () => {
       <KeyboardAwareScrollView extraScrollHeight={0} enableOnAndroid={true} keyboardOpeningTime={50} enableAutomaticScroll={true}>
         <ImgButton
           containerStyles="absolute top-[4vh] left-[2vw]"
-          imgStyles="w-[10vw]"
+          imgStyles="w-[3vh] h-[3vh]"
           textStyles="text-white"
           handlePress={() => {
             setBadCode(false);
