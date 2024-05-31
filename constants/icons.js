@@ -23,6 +23,9 @@ import pencilSec from "../assets/s7/icons/pencilSec.png"
 import exit from "../assets/s7/icons/exit.png"
 import callUs from "../assets/s7/icons/CallUs.png"
 import tg from "../assets/s7/icons/TG.png"
+import click from "../assets/s7/icons/click.png"
+import paynet from "../assets/s7/icons/paynet.png"
+import payme from "../assets/s7/icons/payme.png"
 
 export default {
   phone,
@@ -48,5 +51,8 @@ export default {
   pencilJpg,
   exit,
   tg,
-  callUs
+  callUs,
+  click,
+  paynet,
+  payme,
 };
