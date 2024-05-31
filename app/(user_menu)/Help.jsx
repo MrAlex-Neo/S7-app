@@ -15,8 +15,8 @@ import { useTranslation } from "react-i18next";
 const Help = () => {
   const { t, i18 } = useTranslation();
   return (
-    <SafeAreaView className="bg-white h-full pt-[10vh]">
-      <View className="w-full flex-1 pb-[1vh] px-[5vw] bg-white">
+    <SafeAreaView className="bg-white h-full">
+      <View className="w-full flex-1 pb-[1vh] px-[5vw] pt-[10vh] bg-white">
         <View className="flex-row items-center">
           <ImgButton
             containerStyles="p-0"
@@ -27,6 +27,24 @@ const Help = () => {
           <Text className="font-robotoMedium text-xl ml-[4vw]">
             {t("help")}
           </Text>
+        </View>
+        <View>
+          <TouchableOpacity>
+            <View className="flex-row items-center p-[3vh] border-2 border-grayColor-400 rounded-2xl mt-[4vh]">
+              <Image source={icons.callUs} className="w-[5vh] h-[5vh]" />
+              <Text className="ml-[5vw] text-lg font-robotoMedium">
+                {t('contactUs')}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View className="flex-row items-center p-[3vh] border-2 border-grayColor-400 rounded-2xl mt-[2vh]">
+              <Image source={icons.tg} className="w-[5vh] h-[5vh]" />
+              <Text className="ml-[5vw] text-lg font-robotoMedium">
+                Telegram
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

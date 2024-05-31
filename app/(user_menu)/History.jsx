@@ -15,8 +15,8 @@ import { useTranslation } from "react-i18next";
 const History = () => {
   const { t, i18 } = useTranslation();
   return (
-    <SafeAreaView className="bg-white h-full pt-[10vh]">
-      <View className="w-full flex-1 pb-[1vh] px-[5vw] bg-white">
+    <SafeAreaView className="bg-white h-full">
+      <View className="w-full flex-1 pb-[1vh] px-[5vw] pt-[10vh] bg-white">
         <View className="flex-row items-center">
           <ImgButton
             containerStyles="p-0"

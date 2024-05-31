@@ -55,6 +55,7 @@ const resources = {
       exit: 'Exit',
       cancel: 'Cancel',
       save: 'Save',
+      contactUs: 'Contact us',
     },
   },
   ru: {
@@ -106,6 +107,7 @@ const resources = {
       exit: 'Выйти',
       cancel: 'Отменить',
       save: 'Сохранить',
+      contactUs: 'Связаться с нами',
     },
   },
   uz: {
@@ -157,6 +159,7 @@ const resources = {
       exit: 'Chiqish',
       cancel: 'Bekor qilish',
       save: 'Saqlash',
+      contactUs: "Biz bilan bog'laning",
     },
   },
 };

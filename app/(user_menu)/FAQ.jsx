@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import ImgButton from "../../components/ImgButton";
@@ -11,12 +12,13 @@ import { images } from "../../constants";
 import { icons } from "../../constants";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
+import FaqItem from "../../components/FaqItem";
 
 const FAQ = () => {
   const { t, i18 } = useTranslation();
   return (
-    <SafeAreaView className="bg-white h-full pt-[10vh]">
-      <View className="w-full flex-1 pb-[1vh] px-[5vw] bg-white">
+    <SafeAreaView className="bg-white h-full">
+      <View className="w-full flex-1 pb-[1vh] px-[5vw] pt-[10vh] bg-white">
         <View className="flex-row items-center">
           <ImgButton
             containerStyles="p-0"
@@ -24,9 +26,35 @@ const FAQ = () => {
             textStyles="text-white"
             handlePress={() => router.push("/profile")}
           />
-          <Text className="font-robotoMedium text-xl ml-[4vw]">
-            {t("FAQ")}
-          </Text>
+          <Text className="font-robotoMedium text-xl ml-[4vw]">{t("FAQ")}</Text>
+        </View>
+        <View className="mt-[4vh]">
+          <ScrollView vertical showsVerticalScrollIndicator={false}>
+            <FaqItem
+              question="Доступна ли регистрация с других стран?"
+              answer="К сожалению нет, регистрация аккаунтов выполняется только местными мобильными номерами РУЗ"
+            />
+            <FaqItem
+              question="Каковы способы оплаты топлива через приложение?"
+              answer="К сожалению нет, регистрация аккаунтов выполняется только местными мобильными номерами РУЗ"
+            />
+            <FaqItem
+              question="Могу ли я заказать доставку зарядки своего авто на дом через ваше приложение?"
+              answer="К сожалению нет, регистрация аккаунтов выполняется только местными мобильными номерами РУЗ"
+            />
+            <FaqItem
+              question="Как найти ближайшую заправку с помощью вашего приложения?"
+              answer="К сожалению нет, регистрация аккаунтов выполняется только местными мобильными номерами РУЗ"
+            />
+            <FaqItem
+              question="Какая информация доступна в реальном времени через ваше приложение?"
+              answer="К сожалению нет, регистрация аккаунтов выполняется только местными мобильными номерами РУЗ"
+            />
+            <FaqItem
+              question="Какие расценки у вас за кВт?"
+              answer="К сожалению нет, регистрация аккаунтов выполняется только местными мобильными номерами РУЗ"
+            />
+          </ScrollView>
         </View>
       </View>
     </SafeAreaView>
