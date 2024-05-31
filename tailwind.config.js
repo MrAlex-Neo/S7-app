@@ -30,6 +30,7 @@ module.exports = {
         },
         red: {
           DEFAULT: '#FF6666',
+          100: '#FA0D0D'
         },
         white: {
           DEFAULT: "#FFFFFF",

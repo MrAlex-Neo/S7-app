@@ -48,7 +48,7 @@ const Profile = () => {
                     </Text>
                   ) : (
                     <Text className="font-robotoMedium text-xl">
-                      Фродо Бэггинс
+                      {`${t('name')} ${t('surname')}`}
                     </Text>
                   )}
                   {data && data?.data.phone ? (

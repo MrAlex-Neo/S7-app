@@ -20,6 +20,7 @@ import history from "../assets/s7/icons/history.png"
 import purse from "../assets/s7/icons/purse.png"
 import settings from "../assets/s7/icons/settings.png"
 import pencilSec from "../assets/s7/icons/pencilSec.png"
+import exit from "../assets/s7/icons/exit.png"
 
 export default {
   phone,
@@ -42,5 +43,6 @@ export default {
   purse,
   settings,
   pencilSec,
-  pencilJpg
+  pencilJpg,
+  exit
 };

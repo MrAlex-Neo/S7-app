@@ -147,6 +147,7 @@ const Map = () => {
       useNativeDriver: true,
     }).start();
   };
+ 
 
   return (
     <SafeAreaView className="bg-white h-full">

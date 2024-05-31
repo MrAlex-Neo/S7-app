@@ -25,7 +25,7 @@ const FAQ = () => {
             handlePress={() => router.push("/profile")}
           />
           <Text className="font-robotoMedium text-xl ml-[4vw]">
-            {t("faq")}
+            {t("FAQ")}
           </Text>
         </View>
       </View>

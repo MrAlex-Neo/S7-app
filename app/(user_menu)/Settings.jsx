@@ -1,9 +1,12 @@
+import { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
   SafeAreaView,
   Image,
   TouchableOpacity,
+  Animated,
+  Platform,
 } from "react-native";
 import React from "react";
 import ImgButton from "../../components/ImgButton";
@@ -11,24 +14,153 @@ import { images } from "../../constants";
 import { icons } from "../../constants";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
+import LangChangeBtn from "../../components/langChangeButton";
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+  State,
+} from "react-native-gesture-handler";
 
 const Settings = () => {
-  const { t, i18 } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [isPressed, setIsPressed] = useState(false);
+  const translateY = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (!isPressed) {
+      // Reset translateY when isPressed is false
+      Animated.spring(translateY, {
+        toValue: 0,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isPressed]);
+
+  const handleGesture = Animated.event(
+    [{ nativeEvent: { translationY: translateY } }],
+    { useNativeDriver: false }
+  );
+
+  const handleStateChange = ({ nativeEvent }) => {
+    const { translationY } = nativeEvent;
+    console.log(translationY);
+    if (nativeEvent.state === State.END) {
+      if (translationY > 20 * (Platform.OS === "ios" ? 8.5 : 10)) {
+        setIsPressed(false);
+      } else {
+        Animated.spring(translateY, {
+          toValue: 0,
+          useNativeDriver: true,
+        }).start();
+      }
+    }
+  };
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng); // Смена языка
+    setIsPressed(false);
+  };
+
   return (
-    <SafeAreaView className="bg-white h-full pt-[10vh]">
-      <View className="w-full flex-1 pb-[1vh] px-[5vw] bg-white">
-        <View className="flex-row items-center">
-          <ImgButton
-            containerStyles="p-0"
-            imgStyles="w-[3vh] h-[3vh]"
-            textStyles="text-white"
-            handlePress={() => router.push("/profile")}
-          />
-          <Text className="font-robotoMedium text-xl ml-[4vw]">
-            {t("settings")}
-          </Text>
+    <SafeAreaView className="bg-white h-full">
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        {isPressed ? (
+          <Animated.View
+            className="absolute justify-end w-full h-[100%] z-20"
+            style={{ backgroundColor: "rgba(108, 122, 137, 0.5)" }}
+          >
+            <Animated.View 
+            id="main_one"
+            className="bg-white z-30 align-bottom p-[4vw] pt-[1vh] pb-0 rounded-3xl rounded-br-none rounded-bl-none"
+              style={{transform: [{ translateY }]}}
+            >
+              <PanGestureHandler
+                onGestureEvent={handleGesture}
+                onHandlerStateChange={handleStateChange}
+                activeOffsetY={[-10, 10]} // Проверяем с меньшими значениями
+              >
+                <Animated.View className="h-[6vh]">
+                  <Animated.View
+                    id="child_one"
+                    className="border-2 m-2 rounded-full w-[10vw] mx-auto"
+                  />
+                </Animated.View>
+              </PanGestureHandler>
+              <LangChangeBtn
+                title="O’zbekcha"
+                containerStyles="w-full mb-[2vh]"
+                handlePress={() => {
+                  changeLanguage("uz");
+                }}
+                img={images.uz_flag}
+              />
+              <LangChangeBtn
+                title="Русский"
+                containerStyles="w-full mb-[2vh]"
+                handlePress={() => changeLanguage("ru")}
+                img={images.ru_flag}
+              />
+              <LangChangeBtn
+                title="English"
+                containerStyles="w-full mb-[2vh]"
+                handlePress={() => changeLanguage("en")}
+                img={images.us_flag}
+              />
+            </Animated.View>
+          </Animated.View>
+        ) : null}
+        <View className="w-full flex-1 pb-[1vh] px-[5vw] h-full bg-white pt-[10vh]">
+          <View className="flex-row items-center">
+            <ImgButton
+              containerStyles="p-0"
+              imgStyles="w-[3vh] h-[3vh]"
+              textStyles="text-white"
+              handlePress={() => router.push("/profile")}
+            />
+            <Text className="font-robotoMedium text-xl ml-[4vw]">
+              {t("settings")}
+            </Text>
+          </View>
+
+          <View className="h-full justify-between py-[3vh]">
+            <LangChangeBtn
+              title={t("change_lang")}
+              containerStyles="w-full"
+              handlePress={() => setIsPressed((elem) => !elem)}
+              img={
+                i18n.language === "ru"
+                  ? images.ru_flag
+                  : i18n.language === "en"
+                  ? images.us_flag
+                  : images.uz_flag
+              }
+            />
+            <TouchableOpacity
+              onPress={() => console.log("exit")}
+              activeOpacity={0.7}
+              className={`bg-grayColor-200 border-2 border-grayColor-600 flex-row rounded-xl min-h-[7vh] justify-between px-[3vw] py-[1vh] items-center mb-[2vh]`}
+            >
+              <View className="flex-row items-center gap-5">
+                <Image
+                  source={icons.exit}
+                  className="h-[5vh] w-auto"
+                  resizeMode="contain"
+                />
+                <Text
+                  className={`color-red-100 font-robotoMedium text-base tracking-wider`}
+                >
+                  {t("exit")}
+                </Text>
+              </View>
+              <Image
+                source={images.arrow}
+                className="w-[3vw] h-[2vh]"
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </GestureHandlerRootView>
     </SafeAreaView>
   );
 };

@@ -49,7 +49,9 @@ const resources = {
       help: 'Help',
       purse: 'Adding money to your wallet',
       pursebtn: 'Top up your wallet',
-      personal_data: 'Personal Information'
+      personal_data: 'Personal Information',
+      change_lang: 'Change the language',
+      exit: 'Exit',
     },
   },
   ru: {
@@ -96,6 +98,8 @@ const resources = {
       purse: 'Пополнение кошелька',
       pursebtn: 'Пополнить кошелек',
       personal_data: 'Личная информация',
+      change_lang: 'Изменить язык',
+      exit: 'Выйти',
     },
   },
   uz: {
@@ -142,6 +146,8 @@ const resources = {
       purse: "Hamyonni to'ldirish",
       pursebtn: "Hamyonni to'ldiring",
       personal_data: "Shaxsiy ma'lumotlar",
+      change_lang: "Tilni o'zgartirish",
+      exit: 'Chiqish',
     },
   },
 };
