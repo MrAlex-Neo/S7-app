@@ -52,6 +52,7 @@ const resources = {
       personal_data: 'Personal Information',
       change_lang: 'Change the language',
       exit: 'Exit',
+      cancel: 'Cancel',
     },
   },
   ru: {
@@ -100,6 +101,7 @@ const resources = {
       personal_data: 'Личная информация',
       change_lang: 'Изменить язык',
       exit: 'Выйти',
+      cancel: 'Отменить',
     },
   },
   uz: {
@@ -148,6 +150,7 @@ const resources = {
       personal_data: "Shaxsiy ma'lumotlar",
       change_lang: "Tilni o'zgartirish",
       exit: 'Chiqish',
+      cancel: 'Bekor qilish',
     },
   },
 };

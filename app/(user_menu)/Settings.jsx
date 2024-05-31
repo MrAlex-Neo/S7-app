@@ -15,6 +15,7 @@ import { icons } from "../../constants";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import LangChangeBtn from "../../components/langChangeButton";
+import PrimaryButton from "../../components/PrimaryButton";
 import {
   GestureHandlerRootView,
   PanGestureHandler,
@@ -24,6 +25,7 @@ import {
 const Settings = () => {
   const { t, i18n } = useTranslation();
   const [isPressed, setIsPressed] = useState(false);
+  const [exit, setExit] = useState(false);
   const translateY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -45,8 +47,9 @@ const Settings = () => {
     const { translationY } = nativeEvent;
     console.log(translationY);
     if (nativeEvent.state === State.END) {
-      if (translationY > 20 * (Platform.OS === "ios" ? 8.5 : 10)) {
+      if (translationY > 20 * (Platform.OS === "ios" ? 4.5 : 6)) {
         setIsPressed(false);
+        setExit(false);
       } else {
         Animated.spring(translateY, {
           toValue: 0,
@@ -60,6 +63,10 @@ const Settings = () => {
     i18n.changeLanguage(lng); // Смена языка
     setIsPressed(false);
   };
+  const exitHandler = () => {
+    setIsPressed(true);
+    setExit((prev) => !prev);
+  };
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -69,15 +76,15 @@ const Settings = () => {
             className="absolute justify-end w-full h-[100%] z-20"
             style={{ backgroundColor: "rgba(108, 122, 137, 0.5)" }}
           >
-            <Animated.View 
-            id="main_one"
-            className="bg-white z-30 align-bottom p-[4vw] pt-[1vh] pb-0 rounded-3xl rounded-br-none rounded-bl-none"
-              style={{transform: [{ translateY }]}}
+            <Animated.View
+              id="main_one"
+              className="bg-white z-30 align-bottom p-[4vw] pt-[1vh] pb-0 rounded-3xl rounded-br-none rounded-bl-none"
+              style={{ transform: [{ translateY }] }}
             >
               <PanGestureHandler
                 onGestureEvent={handleGesture}
                 onHandlerStateChange={handleStateChange}
-                activeOffsetY={[-10, 10]} // Проверяем с меньшими значениями
+                activeOffsetY={[-9999, 0]} // Проверяем с меньшими значениями
               >
                 <Animated.View className="h-[6vh]">
                   <Animated.View
@@ -86,26 +93,62 @@ const Settings = () => {
                   />
                 </Animated.View>
               </PanGestureHandler>
-              <LangChangeBtn
-                title="O’zbekcha"
-                containerStyles="w-full mb-[2vh]"
-                handlePress={() => {
-                  changeLanguage("uz");
-                }}
-                img={images.uz_flag}
-              />
-              <LangChangeBtn
-                title="Русский"
-                containerStyles="w-full mb-[2vh]"
-                handlePress={() => changeLanguage("ru")}
-                img={images.ru_flag}
-              />
-              <LangChangeBtn
-                title="English"
-                containerStyles="w-full mb-[2vh]"
-                handlePress={() => changeLanguage("en")}
-                img={images.us_flag}
-              />
+              {exit ? (
+                <View>
+                  <Text className="font-robotoRegular text-xl color-red text-center">
+                    Выход
+                  </Text>
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      borderColor: "#F5F5F5",
+                      width: "90%",
+                      margin: "auto",
+                    }}
+                    className="my-[4vh]"
+                  ></View>
+                  <Text className="font-robotoBold text-lg text-center mb-[2vh]">
+                    Вы хотите выйте из аккаунта
+                  </Text>
+                  <View className="w-full flex-row justify-between">
+                    <PrimaryButton
+                      title={t("cancel")}
+                      containerStyles="bg-primary w-[42vw] ml-2"
+                      textStyles="text-black"
+                      handlePress={() => console.log('cancel')}
+                    />
+                    <PrimaryButton
+                      title={t("exit")}
+                      containerStyles="bg-secondary w-[42vw] mr-2"
+                      textStyles="text-white"
+                      handlePress={() => console.log('exit')}
+                    />
+                  </View>
+                </View>
+              ) : (
+                <>
+                  <LangChangeBtn
+                    title="O’zbekcha"
+                    containerStyles="w-full mb-[2vh]"
+                    handlePress={() => {
+                      changeLanguage("uz");
+                    }}
+                    img={images.uz_flag}
+                  />
+                  <LangChangeBtn
+                    title="Русский"
+                    containerStyles="w-full mb-[2vh]"
+                    handlePress={() => changeLanguage("ru")}
+                    img={images.ru_flag}
+                  />
+                  <LangChangeBtn
+                    title="English"
+                    containerStyles="w-full mb-[2vh]"
+                    handlePress={() => changeLanguage("en")}
+                    img={images.us_flag}
+                  />
+                </>
+              )}
             </Animated.View>
           </Animated.View>
         ) : null}
@@ -136,7 +179,7 @@ const Settings = () => {
               }
             />
             <TouchableOpacity
-              onPress={() => console.log("exit")}
+              onPress={exitHandler}
               activeOpacity={0.7}
               className={`bg-grayColor-200 border-2 border-grayColor-600 flex-row rounded-xl min-h-[7vh] justify-between px-[3vw] py-[1vh] items-center mb-[2vh]`}
             >
