@@ -11,6 +11,7 @@ const PhoneInputFirst = ({
   badResponse,
   mistake,
   keyboardType,
+  editable,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +29,7 @@ const PhoneInputFirst = ({
   };
 
   return (
-    <View className={keyboardType === "numeric" ? 'pb-[2vh]' : 'pb-[5vh]'}>
+    <View className={keyboardType === "numeric" ? 'pb-[5vh]' : 'pb-[5vh]'}>
       <View className={`${otherStyles} mb-[1vh]`}>
         <Text className="text-base tracking-wider font-robotoBold">
           {title}
@@ -62,11 +63,13 @@ const PhoneInputFirst = ({
               : handleChangeText(text);
             }}
             secureTextEntry={title === "Password" && !showPassword}
+            editable={editable}
+            
           />
         </View>
       </View>
       {badResponse ? (
-        <Text className="absolute bottom-0 font-robotoRegular text-sm color-red">
+        <Text className="absolute bottom-[2vh] font-robotoRegular text-sm color-red">
           {mistake}
         </Text>
       ) : null}

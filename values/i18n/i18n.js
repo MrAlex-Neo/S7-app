@@ -24,6 +24,7 @@ const resources = {
       hello: "Hello!",
       phone_number: "Phone number",
       badPhoneInputText: "Incorrect number format has been entered",
+      badTextInputText: 'You must enter at least three characters',
       phone_number_sing_in: "Enter the phone number to receive the confirmation code",
       map: 'Map',
       stations: 'Stations',
@@ -53,6 +54,7 @@ const resources = {
       change_lang: 'Change the language',
       exit: 'Exit',
       cancel: 'Cancel',
+      save: 'Save',
     },
   },
   ru: {
@@ -73,6 +75,7 @@ const resources = {
       hello: "Здравствуйте!",
       phone_number: "Номер телефона",
       badPhoneInputText: "Введен некоректный формат номера",
+      badTextInputText: 'Необходимо ввести минимум три символа',
       phone_number_sing_in: "Введите номер телефона для получения кода подтверждения",
       map: 'Карта',
       stations: 'Станции',
@@ -102,6 +105,7 @@ const resources = {
       change_lang: 'Изменить язык',
       exit: 'Выйти',
       cancel: 'Отменить',
+      save: 'Сохранить',
     },
   },
   uz: {
@@ -122,6 +126,7 @@ const resources = {
       hello: "Salom alekum!",
       phone_number: "Telefon raqami",
       badPhoneInputText: "Noto'g'ri raqam formati kiritildi",
+      badTextInputText: 'Siz kamida uchta belgini kiritishingiz kerak',
       phone_number_sing_in: "Tasdiqlash kodini olish uchun telefon raqamini kiriting",
       map: 'Xarita',
       stations: 'Stantsiyalar',
@@ -151,6 +156,7 @@ const resources = {
       change_lang: "Tilni o'zgartirish",
       exit: 'Chiqish',
       cancel: 'Bekor qilish',
+      save: 'Saqlash',
     },
   },
 };
