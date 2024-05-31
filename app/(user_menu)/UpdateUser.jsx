@@ -17,11 +17,11 @@ import PrimaryButton from "../../components/PrimaryButton";
 
 const UpdateUser = () => {
   const { t, i18 } = useTranslation();
-  const [number, setNumber] = useState('+998')
+  const [number, setNumber] = useState("+998");
   return (
     <SafeAreaView className="bg-white flex-1 pb-[3vh]">
       <KeyboardAwareScrollView
-        extraScrollHeight={0}
+        extraScrollHeight={110}
         enableOnAndroid={true}
         keyboardOpeningTime={50}
         enableAutomaticScroll={true}
@@ -61,7 +61,7 @@ const UpdateUser = () => {
           <View className="mt-[6vh]">
             <PhoneInputFirst
               title={t("phone_number")}
-              value='+998900183395'
+              value=""
               otherStyles=""
               editable={false}
               keyboardType="numeric"
