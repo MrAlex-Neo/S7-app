@@ -9,7 +9,7 @@ import {
   Keyboard,
   Animated,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 import * as Location from "expo-location";
 import SearchInp from "../../components/SearchInp";
@@ -45,6 +45,7 @@ const Map = () => {
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, []);
+
 
   const requestLocationPermission = async () => {
     setLocationPermissionGranted(true);
@@ -147,7 +148,6 @@ const Map = () => {
       useNativeDriver: true,
     }).start();
   };
- 
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -167,6 +167,8 @@ const Map = () => {
                 onGestureEvent={handleGesture}
                 onHandlerStateChange={handleStateChange}
                 activeOffsetY={[-9999, 0]}
+                // minDeltaY={0} // Пробуйте изменять это значение
+                // minOffsetY={0}
               >
                 <Animated.View className="h-[6vh]">
                   <Animated.View
