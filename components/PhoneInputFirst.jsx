@@ -29,7 +29,7 @@ const PhoneInputFirst = ({
   };
 
   return (
-    <View className={keyboardType === "numeric" ? 'pb-[5vh]' : 'pb-[5vh]'}>
+    <View className={keyboardType === "numeric" ? 'pb-[4vh]' : 'pb-[4vh]'}>
       <View className={`${otherStyles} mb-[1vh]`}>
         <Text className="text-base tracking-wider font-robotoBold">
           {title}
@@ -38,17 +38,17 @@ const PhoneInputFirst = ({
         <View
           className={`border-b-2 ${
             badResponse ? "border-b-red" : "border-b-blue"
-          } w-full h-[7vh]`}
+          } w-full h-[5vh]`}
         >
           {keyboardType === "numeric" ? (
             <Image
               source={icons.phone}
-              className="w-[4vh] h-auto absolute top-[1.9vh] left-[1.5vw]"
+              className="w-[4vh] h-auto absolute top-[1.3vh] left-[1.5vw]"
               resizeMode="contain"
             />
           ) : null}
           <TextInput
-            className={`flex-1 text-lg tracking-wider font-robotoMedium ${keyboardType === "numeric" ? "pl-[10vw]" : ''} mb-1`}
+            className={`flex-1 text-lg tracking-wider font-robotoMedium ${keyboardType === "numeric" ? "pl-[10vw]" : ''}`}
             value={
               keyboardType === "numeric" ? formatPhoneNumber(value) : value
             } // Применяем форматирование к значению

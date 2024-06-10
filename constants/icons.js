@@ -26,6 +26,8 @@ import tg from "../assets/s7/icons/TG.png"
 import click from "../assets/s7/icons/click.png"
 import paynet from "../assets/s7/icons/paynet.png"
 import payme from "../assets/s7/icons/payme.png"
+import flag from "../assets/s7/icons/flag.png"
+import clock from "../assets/s7/icons/clock.png"
 
 export default {
   phone,
@@ -55,4 +57,6 @@ export default {
   click,
   paynet,
   payme,
+  flag,
+  clock,
 };

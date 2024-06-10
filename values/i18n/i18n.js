@@ -65,6 +65,8 @@ const resources = {
       paid: 'Paid for',
       tariff: 'Tariff',
       charging_time: 'Charging time',
+      route: 'Route',
+      start: 'Start'
     },
   },
   ru: {
@@ -126,6 +128,8 @@ const resources = {
       paid: 'Оплачено',
       tariff: 'Тариф',
       charging_time: 'Время зарядки',
+      route: 'Маршрут',
+      start: 'Начать'
     },
   },
   uz: {
@@ -187,6 +191,8 @@ const resources = {
       paid: "To'langan",
       tariff: 'Tarif',
       charging_time: 'Zaryadlash vaqti',
+      route: "Yo'nalish",
+      start: 'Boshlang'
     },
   },
 };

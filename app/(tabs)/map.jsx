@@ -4,11 +4,6 @@ import {
   StyleSheet,
   Text,
   View,
-  PermissionsAndroid,
-  Platform,
-  Keyboard,
-  Animated,
-  ScrollView,
   SafeAreaView,
 } from "react-native";
 import * as Location from "expo-location";
@@ -16,36 +11,23 @@ import SearchInp from "../../components/SearchInp";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
 import { focus } from "../../values/atom/myAtoms";
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-  State,
-} from "react-native-gesture-handler";
-import StationCard from "../../components/StationCard";
-import { fetchAuthMe } from "../../redux/slices/auth";
-import { useDispatch } from "react-redux";
-// import LocationServicesDialogBox from "react-native-android-location-services-dialog-box";
+
+import StationMap from "../../components/StationMap";
+import SearchMap from "../../components/SearchMap";
 
 const Map = () => {
   const { t, i18 } = useTranslation();
-  const dispatch = useDispatch();
   const [locationPermissionGranted, setLocationPermissionGranted] =
     useState(false);
   const [currentRegion, setCurrentRegion] = useState(null);
   const mapRef = useRef(null);
-  const [isFocused, setIsFocused] = useAtom(focus);
-  const translateY = useRef(new Animated.Value(0)).current;
+  const [isFocused, ] = useAtom(focus);
   const initialRegion = {
     latitude: 41.2995,
     longitude: 69.2401,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
-
-  useEffect(() => {
-    dispatch(fetchAuthMe());
-  }, []);
-
 
   const requestLocationPermission = async () => {
     setLocationPermissionGranted(true);
@@ -65,19 +47,19 @@ const Map = () => {
     //     );
 
     //     if (agree === PermissionsAndroid.RESULTS.GRANTED) {
-    //       // console.log(LocationServicesDialogBox)
+    //       console.log(LocationServicesDialogBox)
     //       console.log("Разрешение получено");
     //       setLocationPermissionGranted(true);
     //       // Включение службы геолокации на Android
-    //       // LocationServicesDialogBox.checkLocationServicesIsEnabled({
-    //       //   message: "<h2>Требуется включение геолокации</h2>Приложению необходимо включить службы геолокации для определения вашего текущего местоположения.",
-    //       //   ok: "OK",
-    //       //   cancel: "Отмена",
-    //       // }).then(() => {
-    //       //   console.log("Геолокация включена");
-    //       // }).catch((error) => {
-    //       //   console.log("Ошибка включения геолокации:", error.message);
-    //       // });
+    //       LocationServicesDialogBox.checkLocationServicesIsEnabled({
+    //         message: "<h2>Требуется включение геолокации</h2>Приложению необходимо включить службы геолокации для определения вашего текущего местоположения.",
+    //         ok: "OK",
+    //         cancel: "Отмена",
+    //       }).then(() => {
+    //         console.log("Геолокация включена");
+    //       }).catch((error) => {
+    //         console.log("Ошибка включения геолокации:", error.message);
+    //       });
     //     } else {
     //       console.log("Разрешение отклонено");
     //     }
@@ -121,98 +103,38 @@ const Map = () => {
     }
   }, [locationPermissionGranted]);
 
-  const handleGesture = Animated.event(
-    [{ nativeEvent: { translationY: translateY } }],
-    { useNativeDriver: false }
-  );
-
-  const handleStateChange = ({ nativeEvent }) => {
-    const { translationY } = nativeEvent;
-    console.log(translationY);
-    if (nativeEvent.state === State.END) {
-      if (translationY > 20 * (Platform.OS === "ios" ? 8.5 : 10)) {
-        setIsFocused((prevUserState) => ({
-          ...prevUserState,
-          map: false,
-        }));
-        Keyboard.dismiss();
-      } else {
-        Animated.spring(translateY, {
-          toValue: 0,
-          useNativeDriver: true,
-        }).start();
-      }
-    }
-    Animated.spring(translateY, {
-      toValue: 0,
-      useNativeDriver: true,
-    }).start();
-  };
 
   return (
     <SafeAreaView className="bg-white h-full">
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <View className="flex-1">
-          <Animated.View
-            id="main"
-            className={`absolute z-20 p-[2vw] ${
-              isFocused.map
-                ? `h-[90%] bottom-0 right-0 w-[100%] p-[4vw] pt-[1vh] pb-0 rounded-3xl rounded-br-none rounded-bl-none`
-                : "w-[90%] bottom-[2vh] right-[1vw] mx-[3.5vw] rounded-md"
-            }  bg-white`}
-            style={{ transform: [{ translateY }] }}
-          >
-            {isFocused.map ? (
-              <PanGestureHandler
-                onGestureEvent={handleGesture}
-                onHandlerStateChange={handleStateChange}
-                activeOffsetY={[-9999, 0]}
-                // minDeltaY={0} // Пробуйте изменять это значение
-                // minOffsetY={0}
-              >
-                <Animated.View className="h-[6vh]">
-                  <Animated.View
-                    id="child"
-                    className="border-2 m-2 rounded-full w-[10vw] mx-auto"
-                  />
-                </Animated.View>
-              </PanGestureHandler>
-            ) : null}
+      <View>
+        {isFocused.station ? (
+          <StationMap />
+        ) : isFocused.map ? (
+            <SearchMap />
+        ) : (
+          <View className="absolute z-20 w-[93vw] bottom-[2vh] mx-[3.5vw] rounded-md p-[2vw] bg-white">
             <SearchInp placeholder={t("searchText")} map={true} />
-            {isFocused.map ? (
-              <ScrollView vertical showsVerticalScrollIndicator={false}>
-                <View className="flex-col pt-[3vh] pb-[3vh]">
-                  <StationCard busy={true} />
-                  <StationCard busy={true} />
-                  <StationCard busy={false} />
-                  <StationCard busy={true} />
-                  <StationCard busy={false} />
-                  <StationCard busy={false} />
-                  <StationCard busy={true} />
-                </View>
-              </ScrollView>
-            ) : null}
-          </Animated.View>
-          <MapView
-            ref={mapRef}
-            style={styles.map}
-            initialRegion={initialRegion}
-            showsCompass={true}
-            provider={PROVIDER_GOOGLE}
-            showsUserLocation={locationPermissionGranted}
-            // showsMyLocationButton={locationPermissionGranted}
-            onMapReady={() => {
-              console.log("Карта готова");
-              getCurrentLocation();
-            }}
-            // myLocationButtonEnabled={true}
-            customMapStyle={{
-              showsMyLocationButton: true,
-            }}
-            mapPadding={{ top: 40, right: 20, bottom: 40, left: 20 }}
-          />
-        </View>
-      </GestureHandlerRootView>
+          </View>
+        )}
+        <MapView
+          ref={mapRef}
+          style={styles.map}
+          initialRegion={initialRegion}
+          showsCompass={true}
+          provider={PROVIDER_GOOGLE}
+          showsUserLocation={locationPermissionGranted}
+          // showsMyLocationButton={locationPermissionGranted}
+          onMapReady={() => {
+            console.log("Карта готова");
+            getCurrentLocation();
+          }}
+          // myLocationButtonEnabled={true}
+          customMapStyle={{
+            showsMyLocationButton: true,
+          }}
+          mapPadding={{ top: 40, right: 20, bottom: 40, left: 20 }}
+        />
+      </View>
     </SafeAreaView>
   );
 };

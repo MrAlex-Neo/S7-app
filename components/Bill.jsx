@@ -71,7 +71,7 @@ const Bill = ({ spend, num, sum, title, tariff, gbT, chargTime }) => {
               className="ml-[3vw] font-robotoMedium text-base w-[43vw]"
               numberOfLines={1}
               ellipsizeMode="tail"
-              id="title"
+              // id="title"
             >
               {title}
             </Text>

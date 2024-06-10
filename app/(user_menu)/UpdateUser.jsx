@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import ImgButton from "../../components/ImgButton";
 import { images } from "../../constants";
@@ -16,6 +17,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import PrimaryButton from "../../components/PrimaryButton";
 
 const UpdateUser = () => {
+  const navigation = useNavigation()
   const { t, i18 } = useTranslation();
   const [number, setNumber] = useState("+998");
   return (
@@ -32,7 +34,7 @@ const UpdateUser = () => {
               containerStyles="p-0"
               imgStyles="w-[3vh] h-[3vh]"
               textStyles="text-white"
-              handlePress={() => router.push("/profile")}
+              handlePress={() => navigation.navigate("profile")}
             />
             <Text className="font-robotoMedium text-xl ml-[4vw]">
               {t("personal_data")}

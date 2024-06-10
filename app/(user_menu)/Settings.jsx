@@ -8,6 +8,7 @@ import {
   Animated,
   Platform,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import ImgButton from "../../components/ImgButton";
 import { images } from "../../constants";
@@ -23,6 +24,7 @@ import {
 } from "react-native-gesture-handler";
 
 const Settings = () => {
+  const navigation = useNavigation();
   const { t, i18n } = useTranslation();
   const [isPressed, setIsPressed] = useState(false);
   const [exit, setExit] = useState(false);
@@ -115,13 +117,13 @@ const Settings = () => {
                       title={t("cancel")}
                       containerStyles="bg-primary w-[42vw] ml-2"
                       textStyles="text-black"
-                      handlePress={() => console.log('cancel')}
+                      handlePress={() => {navigation.navigate('Settings'), setIsPressed(false), setExit(false)}}
                     />
                     <PrimaryButton
                       title={t("exit")}
                       containerStyles="bg-secondary w-[42vw] mr-2"
                       textStyles="text-white"
-                      handlePress={() => console.log('exit')}
+                      handlePress={() => navigation.popToTop()}
                     />
                   </View>
                 </View>
@@ -158,7 +160,7 @@ const Settings = () => {
               containerStyles="p-0"
               imgStyles="w-[3vh] h-[3vh]"
               textStyles="text-white"
-              handlePress={() => router.push("/profile")}
+              handlePress={() => navigation.navigate("profile")}
             />
             <Text className="font-robotoMedium text-xl ml-[4vw]">
               {t("settings")}

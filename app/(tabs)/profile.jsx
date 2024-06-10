@@ -42,7 +42,7 @@ const Profile = () => {
                   className="w-[10vh] h-[10vh] rounded-full"
                 />
                 <View>
-                  {data && data?.data.username ? (
+                  {data && data?.data?.username ? (
                     <Text className="font-robotoMedium text-xl">
                       {`${data.data.username} ${data.last_name}`}
                     </Text>
@@ -51,7 +51,7 @@ const Profile = () => {
                       {`${t('name')} ${t('surname')}`}
                     </Text>
                   )}
-                  {data && data?.data.phone ? (
+                  {data && data?.data?.phone ? (
                     <Text className="font-robotoMedium text-xs text-grayColor-500 mt-[0.5vh]">
                       {`+${data.data.phone.replace(
                         /(\d{1,3})(\d{1,2})(\d{1,3})(\d{1,2})(\d{1,2})/,

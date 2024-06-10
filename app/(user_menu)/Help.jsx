@@ -11,8 +11,10 @@ import { images } from "../../constants";
 import { icons } from "../../constants";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native";
 
 const Help = () => {
+  const navigation = useNavigation()
   const { t, i18 } = useTranslation();
   return (
     <SafeAreaView className="bg-white h-full">
@@ -22,7 +24,7 @@ const Help = () => {
             containerStyles="p-0"
             imgStyles="w-[3vh] h-[3vh]"
             textStyles="text-white"
-            handlePress={() => router.push("/profile")}
+            handlePress={() => navigation.navigate("profile")}
           />
           <Text className="font-robotoMedium text-xl ml-[4vw]">
             {t("help")}

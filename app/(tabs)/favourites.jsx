@@ -5,6 +5,7 @@ import StationCard from "../../components/StationCard";
 
 const Favourites = () => {
   const { t, i18n } = useTranslation();
+  
 
   return (
     <SafeAreaView className="bg-white h-full">

@@ -54,6 +54,7 @@ export const authAtom = atom({
 
 export const focus = atom({
     search: false,
-    map: false
+    map: false,
+    station: false,
 });
 

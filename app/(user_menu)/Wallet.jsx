@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import ImgButton from "../../components/ImgButton";
 import { images } from "../../constants";
 import { icons } from "../../constants";
@@ -15,8 +16,10 @@ import { useTranslation } from "react-i18next";
 import PrimaryButton from "../../components/PrimaryButton";
 
 const Wallet = () => {
+  const navigation = useNavigation()
   const { t, i18 } = useTranslation();
   const [activeButton, setActiveButton] = useState(null); // Индекс активной кнопки
+  const [part, setPart] = useState(0)
 
   const handlePress = (index) => {
     setActiveButton(index);
@@ -32,13 +35,14 @@ const Wallet = () => {
             containerStyles="p-0"
             imgStyles="w-[3vh] h-[3vh]"
             textStyles="text-white"
-            handlePress={() => router.push("/profile")}
+            handlePress={() => navigation.navigate("profile")}
           />
           <Text className="font-robotoMedium text-xl ml-[4vw]">
             {t("purse")}
           </Text>
         </View>
-        <View className="py-[2vh]">
+        <Text className="font-robotoRegular text-base mt-[3vh] color-grayColor-300">Выберете удобный вид пополнения</Text>
+        <View className="py-[1vh]">
           <ScrollView vertical showsVerticalScrollIndicator={false}>
             {[
               { icon: icons.click, height: "5vh" },
@@ -67,7 +71,7 @@ const Wallet = () => {
         containerStyles="bg-secondary w-[90%] mx-auto"
         textStyles="text-white"
         handlePress={() => console.log("save")}
-        isLoading={isDisabled} // Управляем состоянием disabled
+        isLoading={part === 0 ? isDisabled : false} // Управляем состоянием disabled
       />
     </SafeAreaView>
   );

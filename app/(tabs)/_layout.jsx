@@ -12,6 +12,7 @@ import { icons } from "../../constants";
 import { useTranslation } from "react-i18next";
 import { useAtom } from "jotai";
 import { focus } from "../../values/atom/myAtoms";
+import { useNavigation } from "@react-navigation/native";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -61,6 +62,7 @@ const TabsLayout = () => {
   const { t } = useTranslation();
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [visible, setVisible] = useAtom(focus);
+  const navigation = useNavigation()
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -124,6 +126,12 @@ const TabsLayout = () => {
               />
             ),
           }}
+          listeners={{
+            tabPress: (e) => {
+              // navigation.popToTop()
+              // navigation.navigate("map")
+            },
+          }}
         />
         <Tabs.Screen
           name="stations"
@@ -138,6 +146,12 @@ const TabsLayout = () => {
                 focused={focused}
               />
             ),
+          }}
+          listeners={{
+            tabPress: (e) => {
+              // navigation.popToTop()
+              // navigation.navigate("stations")
+            },
           }}
         />
         <Tabs.Screen
@@ -154,6 +168,12 @@ const TabsLayout = () => {
               />
             ),
           }}
+          listeners={{
+            tabPress: (e) => {
+              // navigation.popToTop()
+              // navigation.navigate("favourites")
+            },
+          }}
         />
         <Tabs.Screen
           name="profile"
@@ -168,6 +188,12 @@ const TabsLayout = () => {
                 focused={focused}
               />
             ),
+          }}
+          listeners={{
+            tabPress: (e) => {
+              // navigation.popToTop()
+              // navigation.navigate("profile")
+            },
           }}
         />
       </Tabs>

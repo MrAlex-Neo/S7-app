@@ -153,7 +153,7 @@ export default function App() {
                   {part !== 4 ? (
                     <View className="flex-col text-center justify-between items-center min-h-[15vh]">
                       <Pagination sum={3} active={part} />
-                      <View className="w-full flex-row gap-y-2 justify-between mx-4">
+                      <View className="w-full flex-row justify-between mx-4">
                         <PrimaryButton
                           title={t("skip")}
                           containerStyles="bg-primary w-[45vw] ml-2"
