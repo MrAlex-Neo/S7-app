@@ -1,7 +1,7 @@
 import { View, StyleSheet, Animated } from "react-native";
 import React, { useEffect, useRef } from "react";
 
-const Pagination = ({ sum, active }) => {
+const Pagination = ({ sum, active, slider, otherStyles }) => {
   const animatedValues = useRef([...Array(sum)].map(() => new Animated.Value(0))).current;
 
   useEffect(() => {
@@ -25,11 +25,11 @@ const Pagination = ({ sum, active }) => {
   }, [active]);
 
   return (
-    <View className="flex-row gap-3">
+    <View className={`flex-row gap-3 ${otherStyles}`}>
       {animatedValues.map((animatedValue, index) => {
         const width = animatedValue.interpolate({
           inputRange: [0, 1],
-          outputRange: [12, 24], // Изменение ширины от 12 до 24
+          outputRange: slider ? [8, 14] : [12, 24], // Изменение ширины от 12 до 24
         });
 
         const backgroundColor = animatedValue.interpolate({
@@ -41,7 +41,8 @@ const Pagination = ({ sum, active }) => {
           <Animated.View
             key={index}
             style={[
-              styles.dot,
+              slider ? 
+              styles.dot_slider : styles.dot,
               {
                 width,
                 backgroundColor,
@@ -58,6 +59,10 @@ const styles = StyleSheet.create({
   dot: {
     height: 12,
     borderRadius: 6,
+  },
+  dot_slider: {
+    height: 8,
+    borderRadius: 4,
   },
 });
 

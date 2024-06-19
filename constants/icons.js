@@ -18,6 +18,7 @@ import faq from "../assets/s7/icons/faq.png"
 import help from "../assets/s7/icons/help.png"
 import history from "../assets/s7/icons/history.png"
 import purse from "../assets/s7/icons/purse.png"
+import green_purse from "../assets/s7/icons/green_purse.png"
 import settings from "../assets/s7/icons/settings.png"
 import pencilSec from "../assets/s7/icons/pencilSec.png"
 import exit from "../assets/s7/icons/exit.png"
@@ -28,6 +29,11 @@ import paynet from "../assets/s7/icons/paynet.png"
 import payme from "../assets/s7/icons/payme.png"
 import flag from "../assets/s7/icons/flag.png"
 import clock from "../assets/s7/icons/clock.png"
+import battery from "../assets/s7/icons/battery.png"
+import persent from "../assets/s7/icons/persent.png"
+import som from "../assets/s7/icons/som.png"
+import zip from "../assets/s7/icons/zip.png"
+import stateClock from "../assets/s7/icons/stateClock.png"
 
 export default {
   phone,
@@ -48,6 +54,7 @@ export default {
   help,
   history,
   purse,
+  green_purse,
   settings,
   pencilSec,
   pencilJpg,
@@ -59,4 +66,9 @@ export default {
   payme,
   flag,
   clock,
+  battery,
+  persent,
+  som,
+  zip,
+  stateClock
 };

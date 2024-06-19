@@ -58,3 +58,9 @@ export const focus = atom({
     station: false,
 });
 
+export const towardPage = atom({
+    profile: false,
+});
+
+
+

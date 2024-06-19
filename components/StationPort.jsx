@@ -9,7 +9,7 @@ const StationPort = ({ busy, isActive, onPress }) => {
   return (
     <TouchableOpacity
       className={`flex-row justify-between ${
-        isActive ? "border-2 border-secondary" : "border-2 border-grayColor-700"
+        isActive ? "border-2 border-secondary" : "border-2 border-grayColor-600"
       } mt-[3vh] rounded-2xl px-[3vw]`}
       onPress={onPress}
       disabled={disabled}

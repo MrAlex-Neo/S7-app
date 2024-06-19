@@ -13,11 +13,14 @@ import { fetchAuthMe } from "../../redux/slices/auth";
 import { images } from "../../constants";
 import { icons } from "../../constants";
 import { router } from "expo-router";
+import { useAtom } from "jotai";
+import { towardPage } from "../../values/atom/myAtoms";
 
 const Profile = () => {
   const { t, i18 } = useTranslation();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.auth.data);
+  const [toward, setToward] = useAtom(towardPage);
 
   useEffect(() => {
     dispatch(fetchAuthMe());
@@ -48,7 +51,7 @@ const Profile = () => {
                     </Text>
                   ) : (
                     <Text className="font-robotoMedium text-xl">
-                      {`${t('name')} ${t('surname')}`}
+                      {`${t("name")} ${t("surname")}`}
                     </Text>
                   )}
                   {data && data?.data?.phone ? (
@@ -72,13 +75,21 @@ const Profile = () => {
                   5.878.550 сум
                 </Text>
               </View>
-              <TouchableOpacity onPress={() => router.push("/Wallet")}>
+              <TouchableOpacity
+                onPress={() => {
+                  setToward((prevUserState) => ({
+                    ...prevUserState,
+                    profile: true,
+                  }));
+                  router.push("/Wallet");
+                }}
+              >
                 <View
                   className="mt-[3vh] px-[4vw] rounded-2xl py-[1vh] bg-white"
                   style={{ alignSelf: "flex-start" }}
                 >
                   <Text className="text-base font-robotoMedium">
-                    {t('pursebtn')}
+                    {t("pursebtn")}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -103,13 +114,17 @@ const Profile = () => {
               <View className="flex-col w-[47%] bg-grayColor-200 border-2 border-grayColor-600 p-[4vw] rounded-lg mb-[2.2vh]">
                 <TouchableOpacity onPress={() => router.push("/FAQ")}>
                   <Image source={icons.faq} className="w-[7vw] h-[7vw]" />
-                  <Text className="text-base mt-[0.5vh] font-robotoMedium">{t("FAQ")}</Text>
+                  <Text className="text-base mt-[0.5vh] font-robotoMedium">
+                    {t("FAQ")}
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View className="flex-col w-[47%] bg-grayColor-200 border-2 border-grayColor-600 p-[4vw] rounded-lg mb-[2.2vh]">
                 <TouchableOpacity onPress={() => router.push("/Help")}>
                   <Image source={icons.help} className="w-[7vw] h-[7vw]" />
-                  <Text className="text-base mt-[0.5vh] font-robotoMedium">{t("help")}</Text>
+                  <Text className="text-base mt-[0.5vh] font-robotoMedium">
+                    {t("help")}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>

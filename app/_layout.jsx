@@ -1,11 +1,13 @@
+// App.js (или RootLayout.js)
 import { StyleSheet, View, Text } from "react-native";
 import { SplashScreen, Stack } from "expo-router";
 import { Provider } from "react-redux";
 import store from '../redux/store'
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+
 SplashScreen.preventAutoHideAsync();
-// "orientation": "portrait"
+
 const RootLayout = () => {
   const [fontsLoaded, error] = useFonts({
     "Roboto-Black": require("../assets/fonts/Roboto-Black.ttf"),

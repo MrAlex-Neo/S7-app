@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import * as Location from "expo-location";
 import SearchInp from "../../components/SearchInp";
 import { useTranslation } from "react-i18next";
@@ -21,13 +16,21 @@ const Map = () => {
     useState(false);
   const [currentRegion, setCurrentRegion] = useState(null);
   const mapRef = useRef(null);
-  const [isFocused, ] = useAtom(focus);
+  const [isFocused, setIsFocused] = useAtom(focus);
   const initialRegion = {
     latitude: 41.2995,
     longitude: 69.2401,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
+
+  useEffect(() => {
+    setIsFocused((prevUserState) => ({
+      ...prevUserState,
+      map: false,
+      search: false,
+    }));
+  }, []);
 
   const requestLocationPermission = async () => {
     setLocationPermissionGranted(true);
@@ -103,14 +106,13 @@ const Map = () => {
     }
   }, [locationPermissionGranted]);
 
-
   return (
     <SafeAreaView className="bg-white h-full">
       <View>
         {isFocused.station ? (
           <StationMap />
         ) : isFocused.map ? (
-            <SearchMap />
+          <SearchMap />
         ) : (
           <View className="absolute z-20 w-[93vw] bottom-[2vh] mx-[3.5vw] rounded-md p-[2vw] bg-white">
             <SearchInp placeholder={t("searchText")} map={true} />

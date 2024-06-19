@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, CommonActions } from "@react-navigation/native";
 import React, { useState } from "react";
 import ImgButton from "../../components/ImgButton";
 import { images } from "../../constants";
@@ -20,6 +20,15 @@ const UpdateUser = () => {
   const navigation = useNavigation()
   const { t, i18 } = useTranslation();
   const [number, setNumber] = useState("+998");
+
+  const resetStack = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "(tabs)", params: { screen: "profile" } }], // Сброс стека и переход на вкладку "map"
+      })
+    );
+  };
   return (
     <SafeAreaView className="bg-white flex-1 pb-[3vh]">
       <KeyboardAwareScrollView
@@ -34,7 +43,7 @@ const UpdateUser = () => {
               containerStyles="p-0"
               imgStyles="w-[3vh] h-[3vh]"
               textStyles="text-white"
-              handlePress={() => navigation.navigate("profile")}
+              handlePress={resetStack}
             />
             <Text className="font-robotoMedium text-xl ml-[4vw]">
               {t("personal_data")}

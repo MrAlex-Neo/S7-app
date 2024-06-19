@@ -7,6 +7,8 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
+import { useAtom } from "jotai";
+import { towardPage } from "../../values/atom/myAtoms";
 import { useNavigation } from "@react-navigation/native";
 import ImgButton from "../../components/ImgButton";
 import { images } from "../../constants";
@@ -14,15 +16,24 @@ import { icons } from "../../constants";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import PrimaryButton from "../../components/PrimaryButton";
+import { CommonActions } from "@react-navigation/native";
 
 const Wallet = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const { t, i18 } = useTranslation();
   const [activeButton, setActiveButton] = useState(null); // Индекс активной кнопки
-  const [part, setPart] = useState(0)
+  const [part, setPart] = useState(0);
 
   const handlePress = (index) => {
     setActiveButton(index);
+  };
+  const resetStack = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "(tabs)", params: { screen: "profile" } }], // Сброс стека и переход на вкладку "map"
+      })
+    );
   };
 
   const isDisabled = activeButton === null;
@@ -35,13 +46,19 @@ const Wallet = () => {
             containerStyles="p-0"
             imgStyles="w-[3vh] h-[3vh]"
             textStyles="text-white"
-            handlePress={() => navigation.navigate("profile")}
+            handlePress={() =>
+              towardPage.profile
+                ? resetStack()
+                : navigation.goBack()
+            }
           />
           <Text className="font-robotoMedium text-xl ml-[4vw]">
             {t("purse")}
           </Text>
         </View>
-        <Text className="font-robotoRegular text-base mt-[3vh] color-grayColor-300">Выберете удобный вид пополнения</Text>
+        <Text className="font-robotoRegular text-base mt-[3vh] color-grayColor-300">
+          {t('turnKindWallet')}
+        </Text>
         <View className="py-[1vh]">
           <ScrollView vertical showsVerticalScrollIndicator={false}>
             {[

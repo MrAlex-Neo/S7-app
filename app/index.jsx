@@ -152,7 +152,7 @@ export default function App() {
                   </Animated.View>
                   {part !== 4 ? (
                     <View className="flex-col text-center justify-between items-center min-h-[15vh]">
-                      <Pagination sum={3} active={part} />
+                      <Pagination sum={3} active={part} slider={false}/>
                       <View className="w-full flex-row justify-between mx-4">
                         <PrimaryButton
                           title={t("skip")}

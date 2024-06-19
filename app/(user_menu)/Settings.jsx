@@ -22,6 +22,7 @@ import {
   PanGestureHandler,
   State,
 } from "react-native-gesture-handler";
+import { CommonActions } from "@react-navigation/native";
 
 const Settings = () => {
   const navigation = useNavigation();
@@ -29,6 +30,15 @@ const Settings = () => {
   const [isPressed, setIsPressed] = useState(false);
   const [exit, setExit] = useState(false);
   const translateY = useRef(new Animated.Value(0)).current;
+
+  const resetStack = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "(tabs)", params: { screen: "profile" } }], // Сброс стека и переход на вкладку "map"
+      })
+    );
+  };
 
   useEffect(() => {
     if (!isPressed) {
@@ -160,7 +170,7 @@ const Settings = () => {
               containerStyles="p-0"
               imgStyles="w-[3vh] h-[3vh]"
               textStyles="text-white"
-              handlePress={() => navigation.navigate("profile")}
+              handlePress={resetStack}
             />
             <Text className="font-robotoMedium text-xl ml-[4vw]">
               {t("settings")}

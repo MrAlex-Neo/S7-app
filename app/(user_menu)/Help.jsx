@@ -11,11 +11,20 @@ import { images } from "../../constants";
 import { icons } from "../../constants";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, CommonActions } from "@react-navigation/native";
 
 const Help = () => {
   const navigation = useNavigation()
   const { t, i18 } = useTranslation();
+
+  const resetStack = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "(tabs)", params: { screen: "profile" } }], // Сброс стека и переход на вкладку "map"
+      })
+    );
+  };
   return (
     <SafeAreaView className="bg-white h-full">
       <View className="w-full flex-1 pb-[1vh] px-[5vw] pt-[10vh] bg-white">
@@ -24,7 +33,7 @@ const Help = () => {
             containerStyles="p-0"
             imgStyles="w-[3vh] h-[3vh]"
             textStyles="text-white"
-            handlePress={() => navigation.navigate("profile")}
+            handlePress={resetStack}
           />
           <Text className="font-robotoMedium text-xl ml-[4vw]">
             {t("help")}
